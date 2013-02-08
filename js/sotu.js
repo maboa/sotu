@@ -252,6 +252,7 @@ $(document).ready(function(){
 
 
 	function drawBarChart(data) {
+		console.dir(data);
 		$('#chart').empty();
 		var barWidth = 14;
 		var width = (barWidth + 4) * data.length;
@@ -621,7 +622,48 @@ $(document).ready(function(){
 			_gaq.push(['_trackEvent', 'USElect', 'Quality button', 'clicked']);
 
 			return false;
-		});		
+		});
+
+
+		$('.address-summary').click(function() {
+			
+			var year = $(this).attr('data-addr');
+
+			$('.address-summary').css('backgroundColor','#eee').css('border-width','0px');
+			
+			var colour = "#fff";
+			var titleText = "";
+
+			switch (year) {
+				case "13":
+					colour = "#9467bd";
+					titleText = "State Of The Union Address (Feb 2013)";
+					break;
+				case "12":
+					colour = "#d62728";
+					titleText = "State Of The Union Address (Jan 2012)";
+					break;
+				case "11":
+					colour = "#2ca02c";
+					titleText = "State Of The Union Address (Jan 2011)";
+					break;
+				case "10":
+					colour = "#ff7f0e";
+					titleText = "State Of The Union Address (Jan 2010)";
+					break;
+				case "09":
+					colour = "#1f77b4";
+					titleText = "The President Addresses A Joint Session of Congress (Feb 2009)";
+
+					break;
+			}
+
+			$(this).css('backgroundColor','#fff').css('border-style','solid').css('border-bottom-width','2px').css('border-top-width','2px').css('border-color',colour);
+			$('.control').css('backgroundColor',colour).text(titleText);
+
+
+			return false;
+		});
 
 		function initTranscript(p) {
 			//console.log("initTranscript in "+(new Date()-startTimer));
@@ -1111,8 +1153,8 @@ $(document).ready(function(){
 			}
 
 			// The chart gets drawn twice now to fix Opera bug and to make it slide in nicely for other browsers.
-			//drawBarChart(data); // Moved down to animated callback. Opera bug on 1st chart.
-			drawStackedChart(data);
+			drawBarChart(data); // Moved down to animated callback. Opera bug on 1st chart.
+			//drawStackedChart(data);
 
 			// set up tweet
 
@@ -1143,8 +1185,8 @@ $(document).ready(function(){
 				$('.footer').slideDown(function() {
 					if(operaBarChartFix) {
 						operaBarChartFix = false;
-						//drawBarChart(data); // Draw the graph again to keep Opera happy that 1st time.
-						drawStackedChart(data);
+						drawBarChart(data); // Draw the graph again to keep Opera happy that 1st time.
+						//drawStackedChart(data);
 					}
 				});
 				$('.body.row').animate({bottom: '164px'}, 500);
