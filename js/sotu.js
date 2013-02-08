@@ -586,7 +586,30 @@ $(document).ready(function(){
 		});
 
 		$('.address-summary').click(function() {
-			alert($(this).attr('data-addr'));
+			
+			var year = $(this).attr('data-addr');
+
+			$('.address-summary').css('backgroundColor','#eee');
+			$(this).css('backgroundColor','#fff');
+
+			switch (year) {
+				case "13":
+					alert("2013");
+					break;
+				case "12":
+					alert("2012");
+					break;
+				case "11":
+					alert("2011");
+					break;
+				case "10":
+					alert("2010");
+					break;
+				case "09":
+					alert("2009");
+					break;
+			}
+
 			return false;
 		});
 
