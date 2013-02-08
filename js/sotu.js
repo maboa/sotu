@@ -252,6 +252,7 @@ $(document).ready(function(){
 
 
 	function drawBarChart(data) {
+		console.dir(data);
 		$('#chart').empty();
 		var barWidth = 14;
 		var width = (barWidth + 4) * data.length;
@@ -582,7 +583,12 @@ $(document).ready(function(){
 			_gaq.push(['_trackEvent', 'USElect', 'Quality button', 'clicked']);
 
 			return false;
-		});		
+		});
+
+		$('.address-summary').click(function() {
+			alert($(this).attr('data-addr'));
+			return false;
+		});
 
 		function initTranscript(p) {
 			//console.log("initTranscript in "+(new Date()-startTimer));
@@ -1034,8 +1040,8 @@ $(document).ready(function(){
 			}
 
 			// The chart gets drawn twice now to fix Opera bug and to make it slide in nicely for other browsers.
-			//drawBarChart(data); // Moved down to animated callback. Opera bug on 1st chart.
-			drawStackedChart(data);
+			drawBarChart(data); // Moved down to animated callback. Opera bug on 1st chart.
+			//drawStackedChart(data);
 
 			// set up tweet
 
@@ -1066,8 +1072,8 @@ $(document).ready(function(){
 				$('.footer').slideDown(function() {
 					if(operaBarChartFix) {
 						operaBarChartFix = false;
-						//drawBarChart(data); // Draw the graph again to keep Opera happy that 1st time.
-						drawStackedChart(data);
+						drawBarChart(data); // Draw the graph again to keep Opera happy that 1st time.
+						//drawStackedChart(data);
 					}
 				});
 				$('.body.row').animate({bottom: '164px'}, 500);
