@@ -585,6 +585,7 @@ $(document).ready(function(){
 			return false;
 		});
 
+
 		$('.address-summary').click(function() {
 			
 			var year = $(this).attr('data-addr');

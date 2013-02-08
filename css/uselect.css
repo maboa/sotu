@@ -56,7 +56,7 @@ ul {
 }
 
 .control {
-	padding: 0px 8px 4px 76px;
+	padding: 2px 8px 4px 76px;
 	white-space: nowrap;
 	font-size: 15px;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -223,11 +223,12 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 }
 
 .panel-title {
-	background-color: #f9b72b;
+	background-color: #FCC95C;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 15px;	
+	font-size: 15px;
 	font-weight: bold;
 	padding: 2px 0 2px 0;
+	margin-top: 14px;
 }
 
 .share-snippet {
@@ -449,6 +450,7 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 
 .year-select {
 	font-size: 11px;
+	font-weight: bold;
 }
 
 .address-summary {
