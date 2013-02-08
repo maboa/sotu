@@ -370,6 +370,22 @@ $(document).ready(function(){
 				hi: "debate4.webm",
 				hd: "debate4.webm"
 			}
+		},
+		{ // Just a copy of the above object for time being.
+			title: "2010", // The only difference is the title.
+			transcript: "sotu2009.htm",
+			videoM: {
+				lo: "20090224_JointSession.mp4",
+				me: "20090224_JointSession.mp4",
+				hi: "20090224_JointSession.mp4",
+				hd: "20090224_JointSession.mp4"
+			},
+			videoW: {
+				lo: "debate4.webm",
+				me: "debate4.webm",
+				hi: "debate4.webm",
+				hd: "debate4.webm"
+			}
 		}
 	];
 
@@ -678,9 +694,29 @@ $(document).ready(function(){
 
 		// Flag to load in the transcripts for the search system the first time loadFile() called.
 		var requireMultiTranscripts = true;
+		var loadNextTranscript = function(i) {
+			if(i < mediaInfo.length) {
+				// Create a divider for the transcript
+				var transElem = document.createElement('div');
+				// $('#transcript-collection').append('<div id="' + this.title '" data-i="' + i '"></div>');
+				$('#transcript-collection').append(transElem);
+
+				$(transElem)
+				.attr('id', mediaInfo[i].title)
+				.attr('data-i', i)
+				.load(transcriptDir + '/' + mediaInfo[i].transcript, function() {
+					loadNextTranscript(++i);
+				});
+			} else {
+				// Finished loading transcripts
+				console.log('loaded hidden transcripts');
+			}
+		};
 		function loadMultiTranscripts() {
 			if(requireMultiTranscripts) {
+				requireMultiTranscripts = false;
 				// load in the transcripts.
+				loadNextTranscript(0);
 			}
 		}
 
@@ -726,7 +762,8 @@ $(document).ready(function(){
 
 					//$('.jp-video-busy').show();
 					//$('#transcript').animate({scrollTop: $("#page").offset().top}, 2000);
-			
+
+					loadMultiTranscripts(); // Load in the other trans now the initial one ready for use.
 				});
 				//console.log("loadTrans out "+(new Date()-startTimer));
 
