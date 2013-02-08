@@ -350,9 +350,30 @@ $(document).ready(function(){
 	var mediaDirW = "http://webapps.aljazeera.net/aje/custom/debate/d4";
 	var transcriptDir = "transcripts";  
 
-	var videoM = new Array();
-	var videoW = new Array();
-	
+	var videoM = [];
+	var videoW = [];
+
+	// Array of Objects to hold media information.
+	var mediaInfo = [
+		{
+			title: "2009",
+			transcript: "sotu2009.htm",
+			videoM: {
+				lo: "20090224_JointSession.mp4",
+				me: "20090224_JointSession.mp4",
+				hi: "20090224_JointSession.mp4",
+				hd: "20090224_JointSession.mp4"
+			},
+			videoW: {
+				lo: "debate4.webm",
+				me: "debate4.webm",
+				hi: "debate4.webm",
+				hd: "debate4.webm"
+			}
+		}
+	];
+
+/*
 	// mp4
 
 	videoM['lo'] = "20090224_JointSession.mp4";
@@ -366,6 +387,7 @@ $(document).ready(function(){
 	videoW['me'] = "debate4.webm";
 	videoW['hi'] = "debate4.webm";
 	videoW['hd'] = "debate4.webm";
+*/
 
 	var latency = 1000;
 
@@ -431,7 +453,8 @@ $(document).ready(function(){
 
 		/* load in the file */  
 
-		loadFile('sotu2009');
+		// loadFile('sotu2009');
+		loadFile(0); // Now an index to mediaInfo array
 
 		function initPopcorn(id) {   
 			var p = Popcorn(id)
@@ -653,17 +676,33 @@ $(document).ready(function(){
 		
 		var startTimer = new Date();
 
+		// Flag to load in the transcripts for the search system the first time loadFile() called.
+		var requireMultiTranscripts = true;
+		function loadMultiTranscripts() {
+			if(requireMultiTranscripts) {
+				// load in the transcripts.
+			}
+		}
+
 		function loadFile(id) { 
+
+			// The id is now an Array index.
+
+			// Setup the legacy variables
+			videoM = mediaInfo[id].videoM;
+			videoW = mediaInfo[id].videoW;
 
 			checkEasterParam();
 
 			$('#main-loader').append('.');
-			var file = transcriptDir+'/'+id+'.htm'; 
+			// var file = transcriptDir+'/'+id+'.htm'; 
+			var file = transcriptDir+'/'+mediaInfo[id].transcript; 
 
 			var mediaMp4 = mediaDirM+'/'+videoM['me'];
 			var mediaWebM = mediaDirW+'/'+videoW['me'];
 			 
-			currentlyPlaying = id;
+			// MJP: Next line appears obsolete.
+			// currentlyPlaying = id;
 
 			var p, busySeekId, busyWaitId, delayBusy = 250, loadTrans = function() {
 				//console.log("loadTrans in "+(new Date()-startTimer));
@@ -676,7 +715,8 @@ $(document).ready(function(){
 
 					$('#main-loader').append('.');
 
-					$.data(myPlayer,'mediaId',id);
+					// MJP: Next line appears obsolete.
+					// $.data(myPlayer,'mediaId',id);
 					
 
 					checkStartParam();
