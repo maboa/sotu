@@ -589,26 +589,38 @@ $(document).ready(function(){
 			
 			var year = $(this).attr('data-addr');
 
-			$('.address-summary').css('backgroundColor','#eee');
-			$(this).css('backgroundColor','#fff');
+			$('.address-summary').css('backgroundColor','#eee').css('border-width','0px');
+			
+			var colour = "#fff";
+			var titleText = "";
 
 			switch (year) {
 				case "13":
-					alert("2013");
+					colour = "#9467bd";
+					titleText = "State Of The Union Address (Feb 2013)";
 					break;
 				case "12":
-					alert("2012");
+					colour = "#d62728";
+					titleText = "State Of The Union Address (Jan 2012)";
 					break;
 				case "11":
-					alert("2011");
+					colour = "#2ca02c";
+					titleText = "State Of The Union Address (Jan 2011)";
 					break;
 				case "10":
-					alert("2010");
+					colour = "#ff7f0e";
+					titleText = "State Of The Union Address (Jan 2010)";
 					break;
 				case "09":
-					alert("2009");
+					colour = "#1f77b4";
+					titleText = "The President Addresses A Joint Session of Congress (Feb 2009)";
+
 					break;
 			}
+
+			$(this).css('backgroundColor','#fff').css('border-style','solid').css('border-bottom-width','2px').css('border-top-width','2px').css('border-color',colour);
+			$('.control').css('backgroundColor',colour).text(titleText);
+
 
 			return false;
 		});
