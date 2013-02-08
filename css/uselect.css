@@ -446,3 +446,7 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 	color:white;
 	font-weight: bold
 }
+
+.year-select {
+	font-size: 11px;
+}
