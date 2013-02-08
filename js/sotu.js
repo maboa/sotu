@@ -122,19 +122,19 @@ $(document).ready(function(){
 	initPieCharts('#address-pie-10',[2,2.5]);
 	initPieCharts('#address-pie-09',[2,1.5]);
 
-	$('.mini-footer').slideUp(function() {
+	/*$('.mini-footer').slideUp(function() {
 		$('.footer').slideDown(function() {
 			drawStackedChart();
 		});
 		$('.body.row').animate({bottom: '164px'}, 500);
 		$('#fade-bot').animate({top: '554px'}, 500);
 		$('#transcript-inst-panel').fadeOut();
-	});
+	});*/
 
 
 
 
-	function drawStackedChart() {
+	function drawStackedChart(data) {
 		$('#chart').empty();
 		var parseDate = d3.time.format("%Y-%m").parse,
 		    formatYear = d3.format("02d"),
@@ -1034,7 +1034,8 @@ $(document).ready(function(){
 			}
 
 			// The chart gets drawn twice now to fix Opera bug and to make it slide in nicely for other browsers.
-			drawBarChart(data); // Moved down to animated callback. Opera bug on 1st chart.
+			//drawBarChart(data); // Moved down to animated callback. Opera bug on 1st chart.
+			drawStackedChart(data);
 
 			// set up tweet
 
@@ -1065,7 +1066,8 @@ $(document).ready(function(){
 				$('.footer').slideDown(function() {
 					if(operaBarChartFix) {
 						operaBarChartFix = false;
-						drawBarChart(data); // Draw the graph again to keep Opera happy that 1st time.
+						//drawBarChart(data); // Draw the graph again to keep Opera happy that 1st time.
+						drawStackedChart(data);
 					}
 				});
 				$('.body.row').animate({bottom: '164px'}, 500);
