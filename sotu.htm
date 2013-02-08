@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8 />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<link href="css/uselect.css" rel="stylesheet" type="text/css" />
+		<link href="skin/uselect-skin.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+
+		<div id="logo">
+			<img src="uslogo.png">
+		</div>
+
+		<div id="control-hldr">
+			<div class="control">
+				 The President Addresses A Joint Session of Congress (Feb 2009)
+			</div>
+		</div>
+
+
+		<!-- transcript content -->
+
+		<div id="transcript" class="middle col">
+
+			<!-- video display (when required) -->
+
+			<div id="media-content" class="media-hldr">
+				<div id="jp_container_1" class="jp-video jp-video-360p">
+					<div id="jquery_jplayer_1" class="jp-jplayer"></div>
+					<div class="jp-gui">
+			    	<div class="jp-video-play" style="display:none">
+			    		<span class="jp-video-play-icon"><img src="video-play.png"/></span>
+			    	</div>
+
+			    	<div class="jp-video-busy" style="display:none">
+			    		<span class="jp-video-busy-icon"><img src="ajax-loader.gif"/></span>
+			    	</div>
+
+		    		<div class="jp-quality-ctrl" style="display:none">
+		    			<ul>
+		    				<li><a class="quality-switch" q="lo" href="#">low</a></li>
+		    				<li><a class="quality-switch" q="me" href="#">med</a></li>
+		    				<li><a class="quality-switch" q="hi" href="#">high</a></li>
+		    				<li><a class="quality-switch" q="hd" href="#">HD</a></li>
+							</ul>
+		    		</div>
+
+			    	<!--<div class="jp-screen-loader"></div>-->
+			      <div class="jp-interface">
+			        <div class="jp-controls-holder">
+										<!--play and pause buttons-->
+								<a href="#" class="jp-play" tabindex="1">play</a>
+								<a href="#" class="jp-pause" tabindex="1">pause</a>
+								<span class="separator sep-1"></span>
+									 
+								<!--progress bar-->
+								<div class="jp-progress">
+									<div class="jp-seek-bar">
+									  <div class="jp-play-bar"><span id="jp-play-drag"></span></div>
+									</div>
+								</div>
+									 
+								<!--time -->
+								<div class="jp-current-time"></div>
+								<span class="time-sep">/</span>
+								<div class="jp-duration"></div>
+								
+								<span class="separator sep-2"></span>
+								
+								<div class="jp-quality">
+									<a class="quality-btn" q="lo" href="#" style="display:none">low</a>
+									<a class="quality-btn" q="me" href="#">med</a>
+									<a class="quality-btn" q="hi" href="#" style="display:none">high</a>
+									<a class="quality-btn" q="hd" href="#" style="display:none">HD</a>
+								</div>
+
+			        </div><!--end jp-controls-holder-->
+			      </div><!--end jp-interface-->
+			    </div><!--end jp-gui-->
+		    </div><!--end jp_container_1-->
+			</div>
+
+			
+			<div id="fade-top" class="fader"></div>
+			<div id="transcript-content" class="body row scroll-y">
+			<div id="main-loader">loading transcript</div>
+			</div>
+
+			<div class="footer row" style="display:none">
+				<p></p>
+				<div id="chart">
+				</div>
+			</div>
+			<div id="fade-bot" class="fader"></div>
+			<div class="mini-footer row">
+				<b>☝</b> Click or touch words in the transcript to view the corresponding part of the debate.		
+			</div>
+			<div class="credits row">
+				<a href="http://aljazeera.com" target="_blank"><img src="aj.png" /></a>
+				<a href="http://www.mozillaopennews.org/" target="_blank"><img src="on.png" /></a>
+			</div>
+		</div>
+
+		<!-- target content -->
+
+		<div class="right col">
+
+			<div id="target-content" class="body row">
+
+
+				<div id="recommended" class="right-panel" style="position:relative">
+					<div class ="address-summary" style="width:100%;overflow:hidden;background-image:url('crnr13.png');">
+						<div class ="address-tags" style="width:180px;float:left;">
+							<span style="font-size:14px; font-weight: bold">America</span> 
+							<span style="font-size:10px; font-weight: bold">banks</span> 
+							<span style="font-size:16px; font-weight: bold">economy</span> 
+							<span style="font-size:12px; font-weight: bold">family</span> 
+							<span style="font-size:11px; font-weight: bold">goverment</span> <span>innovation</span> 
+							<span style="font-size:9px; font-weight: bold">market</span> <span>recession</span>
+						</div>
+						<div id="address-pie-13" class="address-pie">
+							
+						</div>
+						<span class="crnr-year">'13</span>
+					</div>
+				</div>
+
+				<div id="recommended" class="right-panel" style="position:relative">
+					<div class ="address-summary" style="width:100%;overflow:hidden;background-image:url('crnr12.png');">
+						<div class ="address-tags" style="width:180px;float:left;">
+							<span style="font-size:14px; font-weight: bold">America</span> 
+							<span style="font-size:10px; font-weight: bold">banks</span> 
+							<span style="font-size:16px; font-weight: bold">economy</span> 
+							<span style="font-size:12px; font-weight: bold">family</span> 
+							<span style="font-size:11px; font-weight: bold">goverment</span> <span>innovation</span> 
+							<span style="font-size:9px; font-weight: bold">market</span> <span>recession</span>
+						</div>
+						<div id="address-pie-12" class="address-pie">
+							
+						</div>
+						<span class="crnr-year">'12</span>
+
+					</div>
+				</div>
+
+				<div id="recommended" class="right-panel">
+					<div class ="address-summary" style="width:100%;overflow:hidden;background-image:url('crnr11.png');">
+						<div class ="address-tags" style="width:180px;float:left;">
+							<span style="font-size:14px; font-weight: bold">America</span> 
+							<span style="font-size:10px; font-weight: bold">banks</span> 
+							<span style="font-size:16px; font-weight: bold">economy</span> 
+							<span style="font-size:12px; font-weight: bold">family</span> 
+							<span style="font-size:11px; font-weight: bold">goverment</span> <span>innovation</span> 
+							<span style="font-size:9px; font-weight: bold">market</span> <span>recession</span>
+						</div>
+						<div id="address-pie-11" class="address-pie">
+							
+						</div>
+						<span class="crnr-year">'11</span>
+					</div>
+				</div>
+
+				<div id="recommended" class="right-panel">
+					<div class ="address-summary" style="width:100%;overflow:hidden;background-image:url('crnr10.png');">
+						<div class ="address-tags" style="width:180px;float:left;">
+							<span style="font-size:14px; font-weight: bold">America</span> 
+							<span style="font-size:10px; font-weight: bold">banks</span> 
+							<span style="font-size:16px; font-weight: bold">economy</span> 
+							<span style="font-size:12px; font-weight: bold">family</span> 
+							<span style="font-size:11px; font-weight: bold">goverment</span> <span>innovation</span> 
+							<span style="font-size:9px; font-weight: bold">market</span> <span>recession</span>
+						</div>
+						<div id="address-pie-10" class="address-pie">
+							
+						</div>
+						<span class="crnr-year">'10</span>
+					</div>
+				</div>
+
+				<div id="recommended" class="right-panel">
+					<div class ="address-summary" style="width:100%;overflow:hidden;background-image:url('crnr09.png');">
+						<div class ="address-tags" style="width:180px;float:left;">
+							<span style="font-size:14px; font-weight: bold">America</span> 
+							<span style="font-size:10px; font-weight: bold">banks</span> 
+							<span style="font-size:16px; font-weight: bold">economy</span> 
+							<span style="font-size:12px; font-weight: bold">family</span> 
+							<span style="font-size:11px; font-weight: bold">goverment</span> <span>innovation</span> 
+							<span style="font-size:9px; font-weight: bold">market</span> <span>recession</span>
+						</div>
+						<div id="address-pie-09" class="address-pie">
+							
+						</div>
+						<span class="crnr-year">'09</span>
+					</div>
+				</div>				
+
+				<div class="right-panel">
+					<div class="panel-title">
+						Search
+					</div>
+					<span style="font-size:14px; font-weight: bold">America</span> 
+					<span style="font-size:10px; font-weight: bold">banks</span> 
+					<span style="font-size:16px; font-weight: bold">economy</span> 
+					<span style="font-size:12px; font-weight: bold">family</span> 
+					<span style="font-size:11px; font-weight: bold">goverment</span> <span>innovation</span> 
+					<span style="font-size:9px; font-weight: bold">market</span> <span>recession</span>
+					<p>
+					<form>
+						<input class="search-str" id="searchStr" type="text" value="search transcript"><input id="search-btn" type="button" value="Go">
+					</form>
+					</p>
+				</div>-
+
+
+				<!--<div class="right-panel">
+					<div class="panel-title">
+						Share
+					</div>
+					<div class="share-snippet">Highlight a section of the transcript to clip and share that video snippet.</div>
+					<div class="social-hldr">
+						<div id="tweet-like"></div>
+						<a id="fb-link" style="display:none" href="" target="_blank"><img src="facebook.png"></a>
+					</div>
+				</div>-->
+			</div>
+
+			<div id="corner-text" class="footer row" style="display:none">
+				<p>Click on the bars to the left to watch the video segment where your keyword is mentioned by each of the candidates.</p>
+				<form style="display:none">
+					<label><input type="radio" name="mode" value="multiples" checked> Multiples</label>
+					<label><input type="radio" name="mode" value="stacked"> Stacked</label>
+				</form>
+			</div>
+
+			<div class="mini-footer row">
+		
+			</div>
+			<div class="credits row">
+				<span class="content-org">
+					<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US" target="_blank"><img src="cc.png"></a>
+					<a href="http://www.3playmedia.com" target="_blank"><img src="3playmedialogo.png"></a>
+				</span>
+			</div>
+		</div>
+
+
+<!--[if lt IE 9]>
+  <script type="text/javascript" src="js/sizzle.js"></script>
+  <script type="text/javascript" src="js/es5-shim.min.js"></script>
+  <script type="text/javascript" src="js/popcorn.ie8.js"></script> 
+<![endif]-->
+
+		<!-- combine these -->
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.jplayer.min.js"></script>      
+		<script type="text/javascript" src="js/jquery.scrollto.min.js"></script>
+
+		<script type="text/javascript" src="js/d3.v3.min.js"></script>  
+		
+		<!-- use same version of jQuery as holding page does - that way it should be cached -->
+		<!-- minify these -->
+		<script type="text/javascript" src="js/popcorn.js"></script> 
+		<script type="text/javascript" src="js/popcorn.transcript.js"></script> 
+		<!--<script type="text/javascript" src="js/jquery.bbq.js"></script>-->  
+		<!--<script type="text/javascript" src="js/iemobile-fix.js"></script>-->
+		<script type="text/javascript" src="js/sotu.js"></script>
+
+		<!-- GA @start code -->
+		<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-30542235-1']); // aljazeera.com
+	  
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+		</script>
+		<!-- GA @end code -->
+	</body>
+</html>
