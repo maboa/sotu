@@ -883,7 +883,7 @@ $(document).ready(function(){
 
 			var p, busySeekId, busyWaitId, delayBusy = 250, loadTrans = function() {
 				//console.log("loadTrans in "+(new Date()-startTimer));
-				$('#load-status').html('loading ...');
+				// $('#load-status').html('loading ...');
 
 				$('#transcript-content').load(file, function() {
 					//console.log("loaded Transcript "+(new Date()-startTimer));
