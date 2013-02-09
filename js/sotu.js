@@ -355,9 +355,11 @@ $(document).ready(function(){
 	var videoW = [];
 
 	// Array of Objects to hold media information.
-	var mediaInfo = [
+	var addressInfo = [
 		{
-			title: "2009",
+			id: "09",
+			title: "The President Addresses A Joint Session of Congress (Feb 2009)",
+			color: "#1f77b4",
 			transcript: "sotu2009.htm",
 			videoM: {
 				lo: "20090224_JointSession.mp4",
@@ -372,8 +374,11 @@ $(document).ready(function(){
 				hd: "debate4.webm"
 			}
 		},
-		{ // Just a copy of the above object for time being.
-			title: "2010", // The only difference is the title.
+		// The rest only the id, title and color have been set
+		{
+			id: "10",
+			title: "State Of The Union Address (Jan 2010)",
+			color: "#ff7f0e",
 			transcript: "sotu2009.htm",
 			videoM: {
 				lo: "20090224_JointSession.mp4",
@@ -387,7 +392,61 @@ $(document).ready(function(){
 				hi: "debate4.webm",
 				hd: "debate4.webm"
 			}
-		}
+		},
+		{
+			id: "11",
+			title: "State Of The Union Address (Jan 2011)",
+			color: "#2ca02c",
+			transcript: "sotu2009.htm",
+			videoM: {
+				lo: "20090224_JointSession.mp4",
+				me: "20090224_JointSession.mp4",
+				hi: "20090224_JointSession.mp4",
+				hd: "20090224_JointSession.mp4"
+			},
+			videoW: {
+				lo: "debate4.webm",
+				me: "debate4.webm",
+				hi: "debate4.webm",
+				hd: "debate4.webm"
+			}
+		},
+		{
+			id: "12",
+			title: "State Of The Union Address (Jan 2012)",
+			color: "#d62728",
+			transcript: "sotu2009.htm",
+			videoM: {
+				lo: "20090224_JointSession.mp4",
+				me: "20090224_JointSession.mp4",
+				hi: "20090224_JointSession.mp4",
+				hd: "20090224_JointSession.mp4"
+			},
+			videoW: {
+				lo: "debate4.webm",
+				me: "debate4.webm",
+				hi: "debate4.webm",
+				hd: "debate4.webm"
+			}
+		},
+		{
+			id: "13",
+			title: "State Of The Union Address (Feb 2013)",
+			color: "#9467bd",
+			transcript: "sotu2009.htm",
+			videoM: {
+				lo: "20090224_JointSession.mp4",
+				me: "20090224_JointSession.mp4",
+				hi: "20090224_JointSession.mp4",
+				hd: "20090224_JointSession.mp4"
+			},
+			videoW: {
+				lo: "debate4.webm",
+				me: "debate4.webm",
+				hi: "debate4.webm",
+				hd: "debate4.webm"
+			}
+		},
 	];
 
 /*
@@ -471,7 +530,8 @@ $(document).ready(function(){
 		/* load in the file */  
 
 		// loadFile('sotu2009');
-		loadFile(0); // Now an index to mediaInfo array
+		// loadFile(0); // Now an index to addressInfo array
+		loadFile('09'); // Now the id string
 
 		function initPopcorn(id) {   
 			var p = Popcorn(id)
@@ -629,8 +689,8 @@ $(document).ready(function(){
 			
 			var year = $(this).attr('data-addr');
 
-			$('.address-summary').css('backgroundColor','#eee').css('border-width','0px');
-			
+			// $('.address-summary').css('backgroundColor','#eee').css('border-width','0px');
+/*			
 			var colour = "#fff";
 			var titleText = "";
 
@@ -657,13 +717,47 @@ $(document).ready(function(){
 
 					break;
 			}
+*/
+			// var addrInfo = setTitle(year);
 
-			$(this).css('backgroundColor','#fff').css('border-style','solid').css('border-bottom-width','2px').css('border-top-width','2px').css('border-color',colour);
-			$('.control').css('backgroundColor',colour).text(titleText);
+			// $(this).css('backgroundColor','#fff').css('border-style','solid').css('border-bottom-width','2px').css('border-top-width','2px').css('border-color',colour);
+			// $(this).css('backgroundColor','#fff').css('border-style','solid').css('border-bottom-width','2px').css('border-top-width','2px').css('border-color',addrInfo.color);
 
+			// $('.control').css('backgroundColor',colour).text(titleText);
+
+			loadFile(year);
 
 			return false;
 		});
+
+		// $('.address-summary [data-addr="value"]')
+
+		function setTitle(id) {
+			var rObj = {
+				title: "",
+				color: "#fff"
+			};
+
+			var i = getAddressIndex(id);
+			if(i >= 0) {
+				rObj = addressInfo[i];
+				$('.address-summary').css('backgroundColor','#eee').css('border-width','0px');
+				$('.address-summary').filter('[data-addr="' + id + '"]').css('backgroundColor','#fff').css('border-style','solid').css('border-bottom-width','2px').css('border-top-width','2px').css('border-color',rObj.color);
+				$('.control').css('backgroundColor',rObj.color).text(rObj.title);
+			}
+			return rObj;
+		}
+
+		function getAddressIndex(id) {
+			var r;
+			$.each(addressInfo, function(i) {
+				if(this.id === id) {
+					r = i;
+					return false; // exit $.each
+				}
+			});
+			return r;
+		}
 
 		function initTranscript(p) {
 			//console.log("initTranscript in "+(new Date()-startTimer));
@@ -737,16 +831,16 @@ $(document).ready(function(){
 		// Flag to load in the transcripts for the search system the first time loadFile() called.
 		var requireMultiTranscripts = true;
 		var loadNextTranscript = function(i) {
-			if(i < mediaInfo.length) {
+			if(i < addressInfo.length) {
 				// Create a divider for the transcript
 				var transElem = document.createElement('div');
 				// $('#transcript-collection').append('<div id="' + this.title '" data-i="' + i '"></div>');
 				$('#transcript-collection').append(transElem);
 
 				$(transElem)
-				.attr('id', mediaInfo[i].title)
+				.attr('id', 'transcript-' + i)
 				.attr('data-i', i)
-				.load(transcriptDir + '/' + mediaInfo[i].transcript, function() {
+				.load(transcriptDir + '/' + addressInfo[i].transcript, function() {
 					loadNextTranscript(++i);
 				});
 			} else {
@@ -764,23 +858,28 @@ $(document).ready(function(){
 
 		function loadFile(id) { 
 
-			// The id is now an Array index.
+			var ai = getAddressIndex(id);
+			if(ai < 0) {
+				return; // invalid address id.
+			}
 
 			// Setup the legacy variables
-			videoM = mediaInfo[id].videoM;
-			videoW = mediaInfo[id].videoW;
+			videoM = addressInfo[ai].videoM;
+			videoW = addressInfo[ai].videoW;
 
 			checkEasterParam();
 
 			$('#main-loader').append('.');
 			// var file = transcriptDir+'/'+id+'.htm'; 
-			var file = transcriptDir+'/'+mediaInfo[id].transcript; 
+			var file = transcriptDir+'/'+addressInfo[ai].transcript; 
 
 			var mediaMp4 = mediaDirM+'/'+videoM['me'];
 			var mediaWebM = mediaDirW+'/'+videoW['me'];
 			 
 			// MJP: Next line appears obsolete.
 			// currentlyPlaying = id;
+
+			setTitle(id);
 
 			var p, busySeekId, busyWaitId, delayBusy = 250, loadTrans = function() {
 				//console.log("loadTrans in "+(new Date()-startTimer));
@@ -818,6 +917,9 @@ $(document).ready(function(){
 
 				// end ugly chrome fix
 			};
+
+			// Destroy the old jPlayer instance
+			myPlayer.jPlayer('destroy');
 
 			myPlayer.jPlayer({
 				ready: function (event) {
