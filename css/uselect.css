@@ -63,10 +63,13 @@ ul {
 }
 
 .header-ctrl {
-	padding-right: 16px;
+	padding-right: 18px;
 	float: right;
 }
 
+#search-panel {
+	margin-top:20px;
+}
 
 #transcript-content span, #search-panel span {
 	cursor: pointer;
@@ -465,4 +468,12 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 
 .address-tags span {
 	font-weight: bold;
+}
+
+.checkboxes {
+	padding: 4px 0;
+}
+
+.search-form {
+	padding: 6px 0;
 }
