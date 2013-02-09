@@ -30,7 +30,6 @@ $(document).ready(function(){
 	$('#searchStr').focus();
 	$('#searchStr').attr('value',searchDefault);
 
-	$('#main-loader').append('.');
 	var bars = 40;
 	var data = new Array(bars);
 
@@ -759,9 +758,9 @@ $(document).ready(function(){
 			return r;
 		}
 
-		function initTranscript(p) {
+		function initTranscript(p, ai) {
 			//console.log("initTranscript in "+(new Date()-startTimer));
-			$("#transcript-content span").each(function(i) {  
+			$("#transcript-content-" + ai + " span").each(function(i) {  
 				// doing p.transcript on every word is a bit inefficient - wondering if there is a better way
 				p.transcript({
 					time: $(this).attr(dataMs) / 1000, // seconds
@@ -772,6 +771,7 @@ $(document).ready(function(){
 					}
 				});
 			});
+			$("#transcript-content-" + ai).show();
 			//console.log("initTranscript out "+(new Date()-startTimer));
 		}
 
@@ -828,31 +828,39 @@ $(document).ready(function(){
 		
 		var startTimer = new Date();
 
-		// Flag to load in the transcripts for the search system the first time loadFile() called.
-		var requireMultiTranscripts = true;
-		var loadNextTranscript = function(i) {
+		var loadNextTranscript = function(i, p, ai) {
 			if(i < addressInfo.length) {
 				// Create a divider for the transcript
 				var transElem = document.createElement('div');
-				// $('#transcript-collection').append('<div id="' + this.title '" data-i="' + i '"></div>');
-				$('#transcript-collection').append(transElem);
+				$('#transcript-content').append(transElem);
 
-				$(transElem)
-				.attr('id', 'transcript-' + i)
+				$(transElem).hide()
+				.addClass('transcript-layer')
+				.attr('id', 'transcript-content-' + i)
 				.attr('data-i', i)
-				.load(transcriptDir + '/' + addressInfo[i].transcript, function() {
-					loadNextTranscript(++i);
+				.attr('data-addr', addressInfo[i].id)
+				.load(transcriptDir + addressInfo[i].transcript, function() {
+					loadNextTranscript(++i, p, ai);
 				});
 			} else {
 				// Finished loading transcripts
 				console.log('loaded hidden transcripts');
+				prepareMultiTranscripts(p, ai);
 			}
 		};
-		function loadMultiTranscripts() {
+		// Flag to load in the transcripts for the search system the first time loadFile() called.
+		var requireMultiTranscripts = true;
+		function prepareMultiTranscripts(p, ai) {
 			if(requireMultiTranscripts) {
 				requireMultiTranscripts = false;
 				// load in the transcripts.
-				loadNextTranscript(0);
+				loadNextTranscript(0, p, ai);
+			} else {
+				initTranscript(p, ai);
+				$('#main-loader').hide();
+				checkStartParam(); // MJP: This probably needs to move elsewhere
+				checkKeywordParam(); // MJP: This probably needs to move elsewhere
+				myPlayer.jPlayer("volume", 1); // max volume
 			}
 		}
 
@@ -869,7 +877,6 @@ $(document).ready(function(){
 
 			checkEasterParam();
 
-			$('#main-loader').append('.');
 			// var file = transcriptDir+'/'+id+'.htm'; 
 			var file = transcriptDir+addressInfo[ai].transcript; 
 
@@ -881,7 +888,9 @@ $(document).ready(function(){
 
 			setTitle(id);
 
-			var p, busySeekId, busyWaitId, delayBusy = 250, loadTrans = function() {
+			var p, busySeekId, busyWaitId, delayBusy = 250;
+/*
+			var loadTrans = function() {
 				//console.log("loadTrans in "+(new Date()-startTimer));
 				// $('#load-status').html('loading ...');
 
@@ -904,8 +913,9 @@ $(document).ready(function(){
 					//$('.jp-video-busy').show();
 					//$('#transcript').animate({scrollTop: $("#page").offset().top}, 2000);
 
-					loadMultiTranscripts(); // Load in the other trans now the initial one ready for use.
+					prepareMultiTranscripts(); // Load in the other trans now the initial one ready for use.
 				});
+*/
 				//console.log("loadTrans out "+(new Date()-startTimer));
 
 				// ugly chrome fix to stop scroll-bar disappearing
@@ -916,7 +926,10 @@ $(document).ready(function(){
 				bodyRow.animate({bottom: bottom+'px'}, 500);*/
 
 				// end ugly chrome fix
-			};
+			// };
+
+			$('.transcript-layer').hide();
+			$('#main-loader').show();
 
 			// Destroy the old jPlayer instance
 			myPlayer.jPlayer('destroy');
@@ -936,7 +949,8 @@ $(document).ready(function(){
 						poster: "poster.jpg"
 					});
 					setTimeout(function() {
-						loadTrans();
+						// loadTrans();
+						prepareMultiTranscripts(p, ai);
 					}, 1000);
 				},
 				seeking: function() {
@@ -1393,8 +1407,6 @@ $(document).ready(function(){
 			_gaq.push(['_trackEvent', 'USElect', 'Dont Miss', 'Triggered with '+$(this).attr('data-start')]);
 	  	return false;
 	  });
-
-		$('#main-loader').append('.');
 
 		
 });    
