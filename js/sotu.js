@@ -347,9 +347,9 @@ $(document).ready(function(){
 
 		
 	var theScript = [];  
-	var mediaDirM = "http:/";
-	var mediaDirW = "http://webapps.aljazeera.net/aje/custom/debate/d4";
-	var transcriptDir = "transcripts";  
+	var mediaDirM = "http://";
+	var mediaDirW = "http://webapps.aljazeera.net/aje/custom/debate/d4/";
+	var transcriptDir = "transcripts/";  
 
 	var videoM = [];
 	var videoW = [];
@@ -647,8 +647,8 @@ $(document).ready(function(){
 		$('.quality-switch').click(function(){
 			var timeOnClick = currentTime;
 			var quality = $(this).attr('q');
-			var mediaMp4 = mediaDirM+'/'+videoM[quality];
-			var mediaWebM = mediaDirW+'/'+videoW[quality];
+			var mediaMp4 = mediaDirM+videoM[quality];
+			var mediaWebM = mediaDirW+videoW[quality];
 			// IE9 needs a fix to support SetMedia followed by play(time). It works for all browsers.
 			myPlayer.bind($.jPlayer.event.progress + ".ie9fix", (function(time) {
 				return function() {
@@ -871,10 +871,10 @@ $(document).ready(function(){
 
 			$('#main-loader').append('.');
 			// var file = transcriptDir+'/'+id+'.htm'; 
-			var file = transcriptDir+'/'+addressInfo[ai].transcript; 
+			var file = transcriptDir+addressInfo[ai].transcript; 
 
-			var mediaMp4 = mediaDirM+'/'+videoM['me'];
-			var mediaWebM = mediaDirW+'/'+videoW['me'];
+			var mediaMp4 = mediaDirM+videoM['me'];
+			var mediaWebM = mediaDirW+videoW['me'];
 			 
 			// MJP: Next line appears obsolete.
 			// currentlyPlaying = id;
