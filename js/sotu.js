@@ -347,7 +347,7 @@ $(document).ready(function(){
 
 		
 	var theScript = [];  
-	var mediaDirM = "http://www.whitehouse.gov/videos/2009/February";
+	var mediaDirM = "http:/";
 	var mediaDirW = "http://webapps.aljazeera.net/aje/custom/debate/d4";
 	var transcriptDir = "transcripts";  
 
@@ -362,10 +362,10 @@ $(document).ready(function(){
 			color: "#1f77b4",
 			transcript: "sotu2009.htm",
 			videoM: {
-				lo: "20090224_JointSession.mp4",
-				me: "20090224_JointSession.mp4",
-				hi: "20090224_JointSession.mp4",
-				hd: "20090224_JointSession.mp4"
+				lo: "www.whitehouse.gov/videos/2009/February/20090224_JointSession.mp4",
+				me: "www.whitehouse.gov/videos/2009/February/20090224_JointSession.mp4",
+				hi: "www.whitehouse.gov/videos/2009/February/20090224_JointSession.mp4",
+				hd: "www.whitehouse.gov/videos/2009/February/20090224_JointSession.mp4"
 			},
 			videoW: {
 				lo: "debate4.webm",
@@ -379,12 +379,12 @@ $(document).ready(function(){
 			id: "10",
 			title: "State Of The Union Address (Jan 2010)",
 			color: "#ff7f0e",
-			transcript: "sotu2009.htm",
+			transcript: "sotu2010.htm",
 			videoM: {
-				lo: "20090224_JointSession.mp4",
-				me: "20090224_JointSession.mp4",
-				hi: "20090224_JointSession.mp4",
-				hd: "20090224_JointSession.mp4"
+				lo: "happyworm.com/video/m4v/sotu-2010.mp4",
+				me: "happyworm.com/video/m4v/sotu-2010.mp4",
+				hi: "happyworm.com/video/m4v/sotu-2010.mp4",
+				hd: "happyworm.com/video/m4v/sotu-2010.mp4"
 			},
 			videoW: {
 				lo: "debate4.webm",
