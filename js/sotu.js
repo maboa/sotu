@@ -121,14 +121,14 @@ $(document).ready(function(){
 	initPieCharts('#address-pie-10',[2,2.5]);
 	initPieCharts('#address-pie-09',[2,1.5]);
 
-	/*$('.mini-footer').slideUp(function() {
+	$('.mini-footer').slideUp(function() {
 		$('.footer').slideDown(function() {
 			drawStackedChart();
 		});
 		$('.body.row').animate({bottom: '164px'}, 500);
 		$('#fade-bot').animate({top: '554px'}, 500);
 		$('#transcript-inst-panel').fadeOut();
-	});*/
+	});
 
 
 
