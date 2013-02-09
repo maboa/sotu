@@ -1185,6 +1185,11 @@ $(document).ready(function(){
 
 			$('#transcript-content span').css('background-color','white');
 
+			// Will want to wrap this round the whole search.
+			$.each(addressInfo, function(ai) {
+				//
+			});
+
 			$('#transcript-content span').each(function(i) {
 				//console.log($(this).text());
 				var searchWords = searchStr.split(" ");
