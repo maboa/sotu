@@ -125,7 +125,7 @@ $(document).ready(function(){
 	function drawStackedChart(data) {
 
 		/*example data*/
-		
+/*
 		var searchData = new Array(5);
 
 		searchData[0] = new Array(16);
@@ -147,7 +147,7 @@ $(document).ready(function(){
 		}
 
 		var data = searchData;
-
+*/
 		/*can delete above when you pipe real data through*/
 
 
@@ -1106,7 +1106,7 @@ $(document).ready(function(){
 			// The 16 objects, represent the 5 minutes segments. 16x5=80min.
 			// The x property is the time period, EG 1 means 5-9mins
 			// The y property is the number of incidents (found by the search).
-			// The y0 property is the sum of all the previous y values in the current group.
+			// The y0 property is the sum of all the previous y values in that time period.
 
 			// Will want to wrap this round the whole search.
 			$.each(addressInfo, function(ai) {
@@ -1208,13 +1208,13 @@ $(document).ready(function(){
 					searchData[ai][h] = {};
 					searchData[ai][h].x = h;
 					searchData[ai][h].y = hits[h];
-					searchData[ai][h].y0 = h > 0 ? searchData[ai][h-1].y + searchData[ai][h-1].y0 : 0;
+					searchData[ai][h].y0 = ai > 0 ? searchData[ai-1][h].y + searchData[ai-1][h].y0 : 0;
 					//searchData[ai][h].m = hitsDetails[h];
 				}
 			});
 
 			// The chart gets drawn twice now to fix Opera bug and to make it slide in nicely for other browsers.
-			//drawStackedChart(data); // Moved down to animated callback. Opera bug on 1st chart.
+			drawStackedChart(searchData); // Moved down to animated callback. Opera bug on 1st chart.
 
 			// set up tweet
 
@@ -1245,7 +1245,7 @@ $(document).ready(function(){
 				$('.footer').slideDown(function() {
 					if(operaBarChartFix) {
 						operaBarChartFix = false;
-						drawStackedChart(data); // Draw the graph again to keep Opera happy that 1st time.
+						// drawStackedChart(searchData); // Draw the graph again to keep Opera happy that 1st time.
 					}
 				});
 				$('.body.row').animate({bottom: '164px'}, 500);
