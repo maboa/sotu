@@ -3,11 +3,11 @@
  *  - http://www.opensource.org/licenses/mit-license.php
  *  - http://www.gnu.org/copyleft/gpl.html
  *
- * Authors: Mark Boas, Mark J Panaghiston
+ * Authors: Mark Boas (@maboa), Mark J Panaghiston (@thePag)
  *
- * For: Al-Jazeera and OpenNews
+ * For: Al-Jazeera
  *
- * Date: 4th October 2012
+ * Date: February 2013
  */
 
 $(document).ready(function(){   
@@ -419,7 +419,7 @@ $(document).ready(function(){
 			e.preventDefault(); 
     	e.stopImmediatePropagation();*/
 
-    	_gaq.push(['_trackEvent', 'USElect', 'Word clicked', 'word '+$(this).text()]);
+    	_gaq.push(['_trackEvent', 'SOTU', 'Word clicked', 'word '+$(this).text()]);
 		   
 			return false;
 		});     
@@ -574,7 +574,7 @@ $(document).ready(function(){
 			$('.quality-btn[q="'+quality+'"]').show();
 			//$('.jp-video-busy').show();
 
-			_gaq.push(['_trackEvent', 'USElect', 'Quality button', 'switched to '+$(this).attr('q')]);
+			_gaq.push(['_trackEvent', 'SOTU', 'Quality button', 'switched to '+$(this).attr('q')]);
 
 			return false;
 		})	
@@ -590,7 +590,7 @@ $(document).ready(function(){
 				$('.jp-quality-ctrl').fadeIn();
 			}
 
-			_gaq.push(['_trackEvent', 'USElect', 'Quality button', 'clicked']);
+			_gaq.push(['_trackEvent', 'SOTU', 'Quality button', 'clicked']);
 
 			return false;
 		});
@@ -733,7 +733,7 @@ $(document).ready(function(){
     
     	$("#transcript-content").stop().scrollTo($target, 1000, {axis:'y',margin:true});
 
-    	_gaq.push(['_trackEvent', 'USElect', 'Bar chart clicked', 'Bar '+gIndex]);
+    	_gaq.push(['_trackEvent', 'SOTU', 'Bar chart clicked', 'Bar '+gIndex]);
 
 			return false;
 		});
@@ -993,7 +993,7 @@ $(document).ready(function(){
 
 				//http://www.facebook.com/sharer.php?s=100&p[title]=titlehere&p[url]=http://www.yoururlhere.com&p[summary]=yoursummaryhere&p[images][0]=http://www.urltoyourimage.com
 
-				_gaq.push(['_trackEvent', 'USElect', 'Tweet generated', 'Tweet content '+theTweet]);
+				_gaq.push(['_trackEvent', 'SOTU', 'Tweet generated', 'Tweet content '+theTweet]);
 			} 
 		}); 
 
@@ -1264,7 +1264,7 @@ $(document).ready(function(){
 			}
 			//console.dir(theScript);
 			
-			_gaq.push(['_trackEvent', 'USElect', 'Search ', 'Keyword(s) ='+searchStr]);
+			_gaq.push(['_trackEvent', 'SOTU', 'Search ', 'Keyword(s) ='+searchStr]);
 
 			return false;
 		});
@@ -1290,7 +1290,7 @@ $(document).ready(function(){
 				//console.log("s = "+sParam);
 
 				myPlayer.jPlayer("play",s/10);    
-				_gaq.push(['_trackEvent', 'USElect', 'Start/End parameter', 'Triggered at '+s]);
+				_gaq.push(['_trackEvent', 'SOTU', 'Start/End parameter', 'Triggered at '+s]);
 			}
 		}
 
@@ -1300,7 +1300,7 @@ $(document).ready(function(){
 				s = s.split('%20').join(' ');
     		$('#searchStr').val(s);
     		$('#search-btn').trigger('click');
-				_gaq.push(['_trackEvent', 'USElect', 'Keyword parameter', 'Triggered at '+s]);
+				_gaq.push(['_trackEvent', 'SOTU', 'Keyword parameter', 'Triggered at '+s]);
 			}
 		}
 
@@ -1312,7 +1312,7 @@ $(document).ready(function(){
 				if (t != null) {
 					tPause = t;
 				}
-				_gaq.push(['_trackEvent', 'USElect', 'Easter parameter', 'Triggered with '+t]);
+				_gaq.push(['_trackEvent', 'SOTU', 'Easter parameter', 'Triggered with '+t]);
 			}
 		}
 
@@ -1348,7 +1348,7 @@ $(document).ready(function(){
 	  	endTime = $(this).attr('data-end');
 	  	playSource = true;
 			tPause = 0;
-			_gaq.push(['_trackEvent', 'USElect', 'Dont Miss', 'Triggered with '+$(this).attr('data-start')]);
+			_gaq.push(['_trackEvent', 'SOTU', 'Dont Miss', 'Triggered with '+$(this).attr('data-start')]);
 	  	return false;
 	  });
 
