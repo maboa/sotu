@@ -493,3 +493,11 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 .search-form {
 	padding: 6px 0;
 }
+
+.year-key {
+	margin-left:4px;
+}
+
+.year-key-hldr {
+	margin-top:38px;
+}
