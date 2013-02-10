@@ -779,8 +779,8 @@ $(document).ready(function(){
 		// It worked, but took a long time to complete.
 		// Plus, you could scroll down in text way ahead of this function loop and click on word, which kinda broke it...
 		// As it was not setup for that word yet.
-		function initTranscriptAsync(p) {
-			var $trans = $("#transcript-content span");
+		function initTranscriptAsync(p, ai) {
+			var $trans = $("#transcript-content-" + ai + " span");
 			var asyncTrans = function(i) {
 				if(i < $trans.length) {
 					p.transcript({
