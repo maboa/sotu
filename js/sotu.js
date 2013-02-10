@@ -1143,8 +1143,11 @@ $(document).ready(function(){
 								//console.log("hit");
 								var thisWord = $(this);
 								var timeSpan = {};
-								timeSpan.s = parseInt($(this).attr(dataMs));
-								timeSpan.e = parseInt($(this).attr(dataMs))+parseInt(tPause);
+								var thisPara = $(this).parent();
+								// timeSpan.s = parseInt($(this).attr(dataMs));
+								// timeSpan.e = parseInt($(this).attr(dataMs))+parseInt(tPause);
+								timeSpan.s = parseInt(thisPara.children(':first').attr(dataMs));
+								timeSpan.e = parseInt(thisPara.children(':last').attr(dataMs))+parseInt(1000);
 								//console.log('tp='+tPause);
 								
 
@@ -1160,7 +1163,15 @@ $(document).ready(function(){
 									thisWord.css('background-color','yellow');
 									thisWord = thisWord.next();
 								}
-								theScript.push(timeSpan); 
+
+								if(theScript.length > 0) {
+									if(theScript[theScript.length-1].s !== timeSpan.s) {
+										// Should really check it is a different transcript too. (When we do that bit.)
+										theScript.push(timeSpan); 
+									}
+								} else {
+									theScript.push(timeSpan); 
+								}
 							}
 						}
 					});
@@ -1269,7 +1280,16 @@ $(document).ready(function(){
 			return false;
 		});
 
-	  var endTime =  null;
+		$('#search-playback').click(function() {
+			//
+			playSource = false;
+			tPause = 1000; // To late here, since theScript[] already pushed with timeSpan with .e using zero.
+			end = -1;
+			index = 0;
+			return false;
+		});
+
+	  	var endTime =  null;
 
 		function checkStartParam() {
 			var param = getUrlVars()["s"];
