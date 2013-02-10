@@ -257,10 +257,8 @@ $(document).ready(function(){
 	}
 
 
-
-		
 	var theScript = [];  
-	var mediaDirM = "http://";
+	var mediaDirM = "http://bc05.ajnm.me/665003303001/";
 	var mediaDirW = "http://webapps.aljazeera.net/aje/custom/debate/d4/";
 	var transcriptDir = "transcripts/";  
 
@@ -275,10 +273,10 @@ $(document).ready(function(){
 			color: "#1f77b4",
 			transcript: "sotu2009.htm",
 			videoM: {
-				lo: "www.whitehouse.gov/videos/2009/February/20090224_JointSession.mp4",
-				me: "www.whitehouse.gov/videos/2009/February/20090224_JointSession.mp4",
-				hi: "www.whitehouse.gov/videos/2009/February/20090224_JointSession.mp4",
-				hd: "www.whitehouse.gov/videos/2009/February/20090224_JointSession.mp4"
+				lo: "665003303001_2154457655001_20090224-JointSession.mp4",
+				me: "665003303001_2154461731001_20090224-JointSession.mp4",
+				hi: "665003303001_2154473025001_20090224-JointSession.mp4",
+				hd: "665003303001_2154497657001_20090224-JointSession.mp4"
 			},
 			videoW: {
 				lo: "debate4.webm",
@@ -294,10 +292,10 @@ $(document).ready(function(){
 			color: "#ff7f0e",
 			transcript: "sotu2010.htm",
 			videoM: {
-				lo: "happyworm.com/video/m4v/sotu-2010.mp4",
-				me: "happyworm.com/video/m4v/sotu-2010.mp4",
-				hi: "happyworm.com/video/m4v/sotu-2010.mp4",
-				hd: "happyworm.com/video/m4v/sotu-2010.mp4"
+				lo: "665003303001_2154453217001_012710-StateoftheUnion.mp4",
+				me: "665003303001_2154469843001_012710-StateoftheUnion.mp4",
+				hi: "665003303001_2154467481001_012710-StateoftheUnion.mp4",
+				hd: "665003303001_2154491005001_012710-StateoftheUnion.mp4"
 			},
 			videoW: {
 				lo: "debate4.webm",
@@ -312,10 +310,10 @@ $(document).ready(function(){
 			color: "#2ca02c",
 			transcript: "sotu2009.htm",
 			videoM: {
-				lo: "20090224_JointSession.mp4",
-				me: "20090224_JointSession.mp4",
-				hi: "20090224_JointSession.mp4",
-				hd: "20090224_JointSession.mp4"
+				lo: "665003303001_2154478437001_012511-SOTU-EN-HD.mp4",
+				me: "665003303001_2154478392001_012511-SOTU-EN-HD.mp4",
+				hi: "665003303001_2154493579001_012511-SOTU-EN-HD.mp4",
+				hd: "665003303001_2154512765001_012511-SOTU-EN-HD.mp4"
 			},
 			videoW: {
 				lo: "debate4.webm",
@@ -330,10 +328,10 @@ $(document).ready(function(){
 			color: "#d62728",
 			transcript: "sotu2009.htm",
 			videoM: {
-				lo: "20090224_JointSession.mp4",
-				me: "20090224_JointSession.mp4",
-				hi: "20090224_JointSession.mp4",
-				hd: "20090224_JointSession.mp4"
+				lo: "665003303001_2154491021001_012412-StateoftheUnion-EN-HD.mp4",
+				me: "665003303001_2154491034001_012412-StateoftheUnion-EN-HD.mp4",
+				hi: "665003303001_2154502042001_012412-StateoftheUnion-EN-HD.mp4",
+				hd: "665003303001_2154502042001_012412-StateoftheUnion-EN-HD.mp4"
 			},
 			videoW: {
 				lo: "debate4.webm",
