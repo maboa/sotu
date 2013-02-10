@@ -121,51 +121,71 @@ $(document).ready(function(){
 	initPieCharts('#address-pie-10',[2,2.5]);
 	initPieCharts('#address-pie-09',[2,1.5]);
 
-	$('.mini-footer').slideUp(function() {
-		$('.footer').slideDown(function() {
-			drawStackedChart();
-		});
-		$('.body.row').animate({bottom: '164px'}, 500);
-		$('#fade-bot').animate({top: '554px'}, 500);
-		$('#transcript-inst-panel').fadeOut();
-	});
-
-
-
 
 	function drawStackedChart(data) {
-		$('#chart').empty();
-		var parseDate = d3.time.format("%Y-%m").parse,
-		    formatYear = d3.format("02d"),
-		    formatDate = function(d) { return "Q" + ((d.getMonth() / 3 | 0) + 1) + formatYear(d.getFullYear() % 100); };
 
-		var margin = {top: 10, right: 20, bottom: 20, left: 20},
-		    width = 736 - margin.left - margin.right,
+		/*example data*/
+		
+		var searchData = new Array(5);
+
+		searchData[0] = new Array(16);
+		searchData[1] = new Array(16);
+		searchData[2] = new Array(16);
+		searchData[3] = new Array(16);
+		searchData[4] = new Array(16);
+
+		for (var i = 0; i < 5; i++) {
+		  for (j = 0; j < 16; j++) {
+		    searchData[i][j] = new Object();
+		    searchData[i][j].x= j; 
+		    searchData[i][j].y= Math.random()*0.1;
+		    searchData[i][j].y0 = 0;
+		    for (var k = i; k--; k > 0) {
+		      searchData[i][j].y0 += searchData[k][j].y; 
+		    }
+		  }
+		}
+
+		var data = searchData;
+
+		/*can delete above when you pipe real data through*/
+
+
+		$('#chart').empty();
+
+
+		var n = 5, // number of layers
+		    m = 16, // number of samples per layer
+		    stack = d3.layout.stack(),
+		    layers = data, 
+		    yGroupMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y; }); }),
+		    yStackMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); });
+
+		    //console.dir(searchData);
+
+
+		var margin = {top: 0, right: 0, bottom: 30, left: 10},
+		    width = 730 - margin.left - margin.right,
 		    height = 100 - margin.top - margin.bottom;
 
-		var y0 = d3.scale.ordinal()
-		    .rangeRoundBands([height, 0], .2);
-
-		var y1 = d3.scale.linear();
-
 		var x = d3.scale.ordinal()
-		    .rangeRoundBands([0, width], .1, 0);
+		    .domain(d3.range(m))
+		    .rangeRoundBands([0, width], .08);
 
-		var xAxis = d3.svg.axis()
-		    .scale(x)
-		    .orient("bottom")
-		    .tickFormat(formatDate);
-
-		var nest = d3.nest()
-		    .key(function(d) { return d.group; });
-
-		var stack = d3.layout.stack()
-		    .values(function(d) { return d.values; })
-		    .x(function(d) { return d.date; })
-		    .y(function(d) { return d.value; })
-		    .out(function(d, y0) { d.valueOffset = y0; });
+		var y = d3.scale.linear()
+		    .domain([0, yStackMax])
+		    .range([height, 0]);
 
 		var color = d3.scale.category10();
+
+		var xScale = d3.scale.linear().domain([0,80]).range([0, width]);
+
+		var xAxis = d3.svg.axis()
+		    .scale(xScale)
+		    .ticks(m)
+		    .tickSize(0)
+		    .tickPadding(6)
+		    .orient("bottom");
 
 		var svg = d3.select("#chart").append("svg")
 		    .attr("width", width + margin.left + margin.right)
@@ -173,175 +193,69 @@ $(document).ready(function(){
 		  .append("g")
 		    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-		d3.tsv("data.tsv", function(error, data) {
+		var layer = svg.selectAll(".layer")
+		    .data(layers)
+		  .enter().append("g")
+		    .attr("class", "layer")
+		    .style("fill", function(d, i) { return color(i); });
 
-		  data.forEach(function(d) {
-		    d.date = parseDate(d.date);
-		    d.value = +d.value;
-		  });
+		var rect = layer.selectAll("rect")
+		    .data(function(d) { return d; })
+		  .enter().append("rect")
+		    .attr("x", function(d) { return x(d.x); })
+		    .attr("y", height)
+		    .attr("width", x.rangeBand())
+		    .attr("height", 0);
 
-		  var dataByGroup = nest.entries(data);
+		rect.transition()
+		    .delay(function(d, i) { return i * 10; })
+		    .attr("y", function(d) { return y(d.y0 + d.y); })
+		    .attr("height", function(d) { return y(d.y0) - y(d.y0 + d.y); });
 
-		  stack(dataByGroup);
-		  x.domain(dataByGroup[0].values.map(function(d) { return d.date; }));
-		  y0.domain(dataByGroup.map(function(d) { return d.key; }));
-		  y1.domain([0, d3.max(data, function(d) { return d.value; })]).range([y0.rangeBand(), 0]);
+		svg.append("g")
+		    .attr("class", "x axis")
+		    .attr("transform", "translate(0," + height + ")")
+		    .call(xAxis);
 
-		  var group = svg.selectAll(".group")
-		      .data(dataByGroup)
-		    .enter().append("g")
-		      .attr("class", "group")
-		      .attr("transform", function(d) { return "translate(0," + y0(d.key) + ")"; });
+		d3.selectAll("input").on("change", change);
 
-		  group.append("text")
-		      .attr("class", "group-label")
-		      .attr("x", -6)
-		      .attr("y", function(d) { return y1(d.values[0].value / 2); })
-		      .attr("dy", ".35em")
-		      .text(function(d) { return d.key; });
+		var timeout = setTimeout(function() {
+		  d3.select("input[value=\"grouped\"]").property("checked", true).each(change);
+		}, 2000);
 
-		  group.selectAll("rect")
-		      .data(function(d) { return d.values; })
-		    .enter().append("rect")
-		      .style("fill", function(d) { return color(d.group); })
-		      .attr("x", function(d) { return x(d.date); })
-		      .attr("y", function(d) { return y1(d.value); })
-		      .attr("width", x.rangeBand())
-		      .attr("height", function(d) { return y0.rangeBand() - y1(d.value); });
+		function change() {
+		  clearTimeout(timeout);
+		  if (this.value === "grouped") transitionGrouped();
+		  else transitionStacked();
+		}
 
-		  group.filter(function(d, i) { return !i; }).append("g")
-		      .attr("class", "x axis")
-		      .attr("transform", "translate(0," + y0.rangeBand() + ")")
-		      .call(xAxis);
+		function transitionGrouped() {
+		  y.domain([0, yGroupMax]);
 
-		  d3.selectAll("input").on("change", change);
+		  rect.transition()
+		      .duration(500)
+		      .delay(function(d, i) { return i * 10; })
+		      .attr("x", function(d, i, j) { return x(d.x) + x.rangeBand() / n * j; })
+		      .attr("width", x.rangeBand() / n)
+		    .transition()
+		      .attr("y", function(d) { return y(d.y); })
+		      .attr("height", function(d) { return height - y(d.y); });
+		}
 
-		  var timeout = setTimeout(function() {
-		    d3.select("input[value=\"stacked\"]").property("checked", true).each(change);
-		  }, 2000);
+		function transitionStacked() {
+		  y.domain([0, yStackMax]);
 
-		  function change() {
-		    clearTimeout(timeout);
-		    if (this.value === "multiples") transitionMultiples();
-		    else transitionStacked();
-		  }
-
-		  function transitionMultiples() {
-		    var t = svg.transition().duration(750),
-		        g = t.selectAll(".group").attr("transform", function(d) { return "translate(0," + y0(d.key) + ")"; });
-		    g.selectAll("rect").attr("y", function(d) { return y1(d.value); });
-		    g.select(".group-label").attr("y", function(d) { return y1(d.values[0].value / 2); })
-		  }
-
-		  function transitionStacked() {
-		    var t = svg.transition().duration(750),
-		        g = t.selectAll(".group").attr("transform", "translate(0," + y0(y0.domain()[0]) + ")");
-		    g.selectAll("rect").attr("y", function(d) { return y1(d.value + d.valueOffset); });
-		    g.select(".group-label").attr("y", function(d) { return y1(d.values[0].value / 2 + d.values[0].valueOffset); })
-		  }
-		});
+		  rect.transition()
+		      .duration(500)
+		      .delay(function(d, i) { return i * 10; })
+		      .attr("y", function(d) { return y(d.y0 + d.y); })
+		      .attr("height", function(d) { return y(d.y0) - y(d.y0 + d.y); })
+		    .transition()
+		      .attr("x", function(d) { return x(d.x); })
+		      .attr("width", x.rangeBand());
+		}
 	}
 
-
-
-
-
-
-
-
-
-	function drawBarChart(data) {
-		console.dir(data);
-		$('#chart').empty();
-		var barWidth = 14;
-		var width = (barWidth + 4) * data.length;
-		var height = 70;
-		var bottomPadding = 20;
-
-		var colorlist = ["#ffcccc", "#ccccff"];
-
-		//if ($('#repCb:checked').val()) {
-			colorlist[0]="#dc3912";
-		//}
-
-		//if($('#demCb:checked').val()) {
-			colorlist[1]="#3366cc";	
-		//}
-
-		var paddingList = [1,-1];
-
-		var x = d3.scale.linear().domain([0, data.length]).range([0, width]);
-		var y = d3.scale.linear().domain([0, d3.max(data, function(datum) { return datum.s; })]).
-		  rangeRound([0, height]);
-
-		// add the canvas to the DOM
-
-
-		var barDemo = d3.select("#chart").
-		  append("svg:svg").
-		  attr("width", width).
-		  attr("height", height+bottomPadding);
-
-
-		barDemo.selectAll("rect").
-		  data(data).
-		  enter().
-		  append("svg:rect").
-		  attr("x", function(datum, index) { return x(index) + paddingList[index % 2]; }).
-		  attr("y", function(datum) { return height - y(datum.s); }).
-		  attr("height", function(datum) { return y(datum.s); }).
-		  attr("width", barWidth).
-		  attr("fill", function(d, i) { return colorlist[i % 2]; });
-
-		// text on bars
-
-		barDemo.selectAll("text").
-		  data(data).
-		  enter().
-		  append("svg:text").
-		  attr("x", function(datum, index) { return x(index) + barWidth + paddingList[index % 2]; }).
-		  attr("y", function(datum) { return height - y(datum.s); }).
-		  attr("dx", -barWidth/2 ).
-		  attr("dy", "1em").
-		  attr("text-anchor", "middle").
-		  filter(function(datum){return datum.s > 0}). 
-		  text(function(datum) { return datum.s;}).
-		  attr("fill", "white");
-
-		var rules = barDemo.append("g");
-
-    // Add rules
-
-  	rules = rules.selectAll(".rule")
-   		.data(y.ticks(d3.max(data, function(datum) { return datum.s; })))
-    	.enter().append("g")
-    	.attr("class", "rule")
-    	.attr("transform", function(d) { return "translate(0," + y(d) + ")"; });
-  
-  	rules.append("line")
-      .attr("x2", width);
-
-    var xScale = d3.scale.linear().domain([5,95]).range([width/20, width-width/20]);
-
-
-		var xAxis = d3.svg.axis()
-     .scale(xScale)
-     .orient("bottom")
-     .ticks(20);
-
-		// Add an axis 
-  	barDemo.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(0," + (height) + ")")
-      .call(xAxis);
-
-    barDemo.selectAll("rect").on("click", function(d,i) {
-
-  	});
-
-		maxData = d3.max(data, function(datum) { return datum.s; });
-
-	}
 
 
 		
@@ -1300,8 +1214,7 @@ $(document).ready(function(){
 			});
 
 			// The chart gets drawn twice now to fix Opera bug and to make it slide in nicely for other browsers.
-			drawBarChart(data); // Moved down to animated callback. Opera bug on 1st chart.
-			//drawStackedChart(data);
+			//drawStackedChart(data); // Moved down to animated callback. Opera bug on 1st chart.
 
 			// set up tweet
 
@@ -1332,8 +1245,7 @@ $(document).ready(function(){
 				$('.footer').slideDown(function() {
 					if(operaBarChartFix) {
 						operaBarChartFix = false;
-						drawBarChart(data); // Draw the graph again to keep Opera happy that 1st time.
-						//drawStackedChart(data);
+						drawStackedChart(data); // Draw the graph again to keep Opera happy that 1st time.
 					}
 				});
 				$('.body.row').animate({bottom: '164px'}, 500);
