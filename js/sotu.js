@@ -217,7 +217,7 @@ $(document).ready(function(){
 		    .attr("transform", "translate(0," + height + ")")
 		    .call(xAxis);
 
-		d3.selectAll("input").on("change", change);
+		d3.selectAll(".chart-type").on("change", change);
 
 		var timeout = setTimeout(function() {
 		  d3.select("input[value=\"grouped\"]").property("checked", true).each(change);
