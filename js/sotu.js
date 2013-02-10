@@ -1179,66 +1179,75 @@ $(document).ready(function(){
 			var searchStr = $('#searchStr').val().toLowerCase();
 
 			var matches = [];
-			var speakers = [];
-			var demCount = 0;
-			var repCount = 0;
+			var speakers = []; // Obsolete
+			var demCount = 0; // Obsolete
+			var repCount = 0; // Obsolete
+
+			var searchData = [];
 
 			$('#transcript-content span').css('background-color','white');
+
+			// Want an Array containing 5 Arrays of 16 objects containing x, y and y0 properties.
+			// The 5 Arrays represent the group/year.
+			// The 16 objects, represent the 5 minutes segments. 16x5=80min.
+			// The x property is the time period, EG 1 means 5-9mins
+			// The y property is the number of incidents (found by the search).
+			// The y0 property is the sum of all the previous y values in the current group.
 
 			// Will want to wrap this round the whole search.
 			$.each(addressInfo, function(ai) {
 				//
-			});
 
-			$('#transcript-content span').each(function(i) {
-				//console.log($(this).text());
-				var searchWords = searchStr.split(" ");
-				//if (cleanWord($(this).text()).indexOf('jack') >=0 ) console.log(cleanWord($(this).text()));
-				//console.log(searchWords[0]);
-				//console.log(cleanWord($(this).text()));
+				$('#transcript-content span').each(function(i) {
+					//console.log($(this).text());
+					var searchWords = searchStr.split(" ");
+					//if (cleanWord($(this).text()).indexOf('jack') >=0 ) console.log(cleanWord($(this).text()));
+					//console.log(searchWords[0]);
+					//console.log(cleanWord($(this).text()));
 
-				if (searchWords[0] == cleanWord($(this).text())) {
-					//console.log('checking');
-					
-					var matching = true;
-					if (searchWords.length == 1) {
-						//$(this).css('background-color','yellow');
-					} else {
-						var nextWord = $(this).next();
-
-						for (var w=1; w < searchWords.length; w++) {
-
-							if (searchWords[w] != cleanWord(nextWord.text())) {
-								matching = false;
-							}
-							nextWord = nextWord.next();
-						}
-					}
-					
-					if (matching == true) {
-						//console.log("hit");
-						var thisWord = $(this);
-						var timeSpan = {};
-						timeSpan.s = parseInt($(this).attr(dataMs));
-						timeSpan.e = parseInt($(this).attr(dataMs))+parseInt(tPause);
-						//console.log('tp='+tPause);
+					if (searchWords[0] == cleanWord($(this).text())) {
+						//console.log('checking');
 						
+						var matching = true;
+						if (searchWords.length == 1) {
+							//$(this).css('background-color','yellow');
+						} else {
+							var nextWord = $(this).next();
 
-						/*establish the speaker*/
+							for (var w=1; w < searchWords.length; w++) {
 
-						var wordElement = $(this).parent().children(':first');
-						var word = wordElement.text();
-
-						speakers.push('d');
-						matches.push($(this).attr(dataMs));
-
-						for (var w=0; w < searchWords.length; w++) {
-							thisWord.css('background-color','yellow');
-							thisWord = thisWord.next();
+								if (searchWords[w] != cleanWord(nextWord.text())) {
+									matching = false;
+								}
+								nextWord = nextWord.next();
+							}
 						}
-						theScript.push(timeSpan); 
+						
+						if (matching == true) {
+							//console.log("hit");
+							var thisWord = $(this);
+							var timeSpan = {};
+							timeSpan.s = parseInt($(this).attr(dataMs));
+							timeSpan.e = parseInt($(this).attr(dataMs))+parseInt(tPause);
+							//console.log('tp='+tPause);
+							
+
+							/*establish the speaker*/
+
+							var wordElement = $(this).parent().children(':first');
+							var word = wordElement.text();
+
+							speakers.push('d');
+							matches.push($(this).attr(dataMs));
+
+							for (var w=0; w < searchWords.length; w++) {
+								thisWord.css('background-color','yellow');
+								thisWord = thisWord.next();
+							}
+							theScript.push(timeSpan); 
+						}
 					}
-				}
+				});
 			});
 
 			var hits = new Array(bars);
