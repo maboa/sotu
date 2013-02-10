@@ -30,7 +30,7 @@ $(document).ready(function(){
 	$('#searchStr').focus();
 	$('#searchStr').attr('value',searchDefault);
 
-	var bars = 40;
+	var bars = 16; // 40;
 	var data = new Array(bars);
 
 	var maxData = 0;
@@ -1197,8 +1197,10 @@ $(document).ready(function(){
 			// Will want to wrap this round the whole search.
 			$.each(addressInfo, function(ai) {
 				//
+				matches[ai] = [];
+				searchData[ai] = new Array(bars);
 
-				$('#transcript-content span').each(function(i) {
+				$('#transcript-content-' + ai + ' span').each(function(i) {
 					//console.log($(this).text());
 					var searchWords = searchStr.split(" ");
 					//if (cleanWord($(this).text()).indexOf('jack') >=0 ) console.log(cleanWord($(this).text()));
@@ -1237,8 +1239,8 @@ $(document).ready(function(){
 							var wordElement = $(this).parent().children(':first');
 							var word = wordElement.text();
 
-							speakers.push('d');
-							matches.push($(this).attr(dataMs));
+							speakers.push('d'); // Obsolete
+							matches[ai].push($(this).attr(dataMs));
 
 							for (var w=0; w < searchWords.length; w++) {
 								thisWord.css('background-color','yellow');
@@ -1248,39 +1250,54 @@ $(document).ready(function(){
 						}
 					}
 				});
+
+				var hits = new Array(bars);
+				for (var h=0; h < hits.length; h++) {
+					hits[h] = 0;
+				}
+/*
+				for (var n=0; n < matches.length; n++) {	
+					if (speakers[n] == 'r') {
+						var barI = 2*(Math.floor(matches[n]/300000));
+						hits[barI]++;	
+						if (!hitsDetails[barI]) {
+							hitsDetails[barI] = new Array();
+						}
+						hitsDetails[barI].push(matches[n]);
+					}
+
+					if (speakers[n] == 'd') {
+						var barJ = 2*(Math.floor(matches[n]/300000))+1;
+						hits[barJ]++;	
+						if (!hitsDetails[barJ]) {
+							hitsDetails[barJ] = new Array();
+						}
+						hitsDetails[barJ].push(matches[n]);
+					}
+				}
+				for (var h=0; h < hits.length; h++) {
+					data[h] = {};
+					data[h].s = hits[h];
+					//data[h].m = hitsDetails[h];
+				}
+*/
+				for (var n=0; n < matches[ai].length; n++) {	
+					var tSeg = Math.floor(matches[ai][n]/300000); // Which 5 minute time segment is it in?
+					hits[tSeg]++;	
+					if (!hitsDetails[tSeg]) {
+						hitsDetails[tSeg] = new Array();
+					}
+					hitsDetails[tSeg].push(matches[ai][n]);
+				}
+
+				for (var h=0; h < hits.length; h++) {
+					searchData[ai][h] = {};
+					searchData[ai][h].x = h;
+					searchData[ai][h].y = hits[h];
+					searchData[ai][h].y0 = h > 0 ? searchData[ai][h-1].y + searchData[ai][h-1].y0 : 0;
+					//searchData[ai][h].m = hitsDetails[h];
+				}
 			});
-
-			var hits = new Array(bars);
-			for (var h=0; h < hits.length; h++) {
-				hits[h] = 0;
-			}
-
-			for (var n=0; n < matches.length; n++) {	
-				if (speakers[n] == 'r') {
-					var barI = 2*(Math.floor(matches[n]/300000));
-					hits[barI]++;	
-					if (!hitsDetails[barI]) {
-						hitsDetails[barI] = new Array();
-					}
-					hitsDetails[barI].push(matches[n]);
-				}
-
-				if (speakers[n] == 'd') {
-					var barJ = 2*(Math.floor(matches[n]/300000))+1;
-					hits[barJ]++;	
-					if (!hitsDetails[barJ]) {
-						hitsDetails[barJ] = new Array();
-					}
-					hitsDetails[barJ].push(matches[n]);
-				}
-				
-			}
-
-			for (var h=0; h < hits.length; h++) {
-				data[h] = {};
-				data[h].s = hits[h];
-				//data[h].m = hitsDetails[h];
-			}
 
 			// The chart gets drawn twice now to fix Opera bug and to make it slide in nicely for other browsers.
 			drawBarChart(data); // Moved down to animated callback. Opera bug on 1st chart.
