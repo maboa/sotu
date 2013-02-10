@@ -1114,56 +1114,59 @@ $(document).ready(function(){
 				matches[ai] = [];
 				searchData[ai] = new Array(bars);
 
-				$('#transcript-content-' + ai + ' span').each(function(i) {
-					//console.log($(this).text());
-					var searchWords = searchStr.split(" ");
-					//if (cleanWord($(this).text()).indexOf('jack') >=0 ) console.log(cleanWord($(this).text()));
-					//console.log(searchWords[0]);
-					//console.log(cleanWord($(this).text()));
+				if($('#search-addr-' + addressInfo[ai].id).is(':checked')) {
 
-					if (searchWords[0] == cleanWord($(this).text())) {
-						//console.log('checking');
-						
-						var matching = true;
-						if (searchWords.length == 1) {
-							//$(this).css('background-color','yellow');
-						} else {
-							var nextWord = $(this).next();
+					$('#transcript-content-' + ai + ' span').each(function(i) {
+						//console.log($(this).text());
+						var searchWords = searchStr.split(" ");
+						//if (cleanWord($(this).text()).indexOf('jack') >=0 ) console.log(cleanWord($(this).text()));
+						//console.log(searchWords[0]);
+						//console.log(cleanWord($(this).text()));
 
-							for (var w=1; w < searchWords.length; w++) {
-
-								if (searchWords[w] != cleanWord(nextWord.text())) {
-									matching = false;
-								}
-								nextWord = nextWord.next();
-							}
-						}
-						
-						if (matching == true) {
-							//console.log("hit");
-							var thisWord = $(this);
-							var timeSpan = {};
-							timeSpan.s = parseInt($(this).attr(dataMs));
-							timeSpan.e = parseInt($(this).attr(dataMs))+parseInt(tPause);
-							//console.log('tp='+tPause);
+						if (searchWords[0] == cleanWord($(this).text())) {
+							//console.log('checking');
 							
+							var matching = true;
+							if (searchWords.length == 1) {
+								//$(this).css('background-color','yellow');
+							} else {
+								var nextWord = $(this).next();
 
-							/*establish the speaker*/
+								for (var w=1; w < searchWords.length; w++) {
 
-							var wordElement = $(this).parent().children(':first');
-							var word = wordElement.text();
-
-							speakers.push('d'); // Obsolete
-							matches[ai].push($(this).attr(dataMs));
-
-							for (var w=0; w < searchWords.length; w++) {
-								thisWord.css('background-color','yellow');
-								thisWord = thisWord.next();
+									if (searchWords[w] != cleanWord(nextWord.text())) {
+										matching = false;
+									}
+									nextWord = nextWord.next();
+								}
 							}
-							theScript.push(timeSpan); 
+							
+							if (matching == true) {
+								//console.log("hit");
+								var thisWord = $(this);
+								var timeSpan = {};
+								timeSpan.s = parseInt($(this).attr(dataMs));
+								timeSpan.e = parseInt($(this).attr(dataMs))+parseInt(tPause);
+								//console.log('tp='+tPause);
+								
+
+								/*establish the speaker*/
+
+								var wordElement = $(this).parent().children(':first');
+								var word = wordElement.text();
+
+								speakers.push('d'); // Obsolete
+								matches[ai].push($(this).attr(dataMs));
+
+								for (var w=0; w < searchWords.length; w++) {
+									thisWord.css('background-color','yellow');
+									thisWord = thisWord.next();
+								}
+								theScript.push(timeSpan); 
+							}
 						}
-					}
-				});
+					});
+				}
 
 				var hits = new Array(bars);
 				for (var h=0; h < hits.length; h++) {
