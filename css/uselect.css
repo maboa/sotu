@@ -71,7 +71,7 @@ ul {
 	margin-top:20px;
 }
 
-#transcript-content span, #search-panel span {
+#transcript-content span, #search-panel span, #search-panel label {
 	cursor: pointer;
 }
 
@@ -81,7 +81,7 @@ ul {
 
 a img {border: none; }
 
-#transcript-content span:hover, #search-panel span:hover  {  
+#transcript-content span:hover, #search-panel span:hover, .address-tags span:hover  {  
 	color: #f9b72b; 
 }
 
