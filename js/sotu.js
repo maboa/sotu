@@ -526,6 +526,8 @@ $(document).ready(function(){
 
 			$('.intro').fadeOut();
 
+			playSource = true; // Stop the auto playback, as this was a user GUI action.
+
 			loadFile(year);
 
 			return false;
