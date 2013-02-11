@@ -527,12 +527,22 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 	padding:8px;
 	background-color:#fcfcfc;
 	font-size:16px;
-	overflow:hidden;
+	line-height: 30px;
+	overflow-y: auto;
 	color: #333;
-	font-size: 16px;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	line-height: 20px;
 	z-index: 1000;
+}
+
+.year-analysis {
+	padding-bottom: 40px;
+}
+
+.quote {
+	font-size:24px;
+	line-height:30px;
+	font-style: italic;
+	padding: 20px 0;
 }
 
 #address-mask {
