@@ -1006,6 +1006,19 @@ $(document).ready(function(){
 			return false;
 		});
 
+		$('.close-analysis').click(function(){
+
+			$('.the-analysis').fadeOut(function() {
+				if (transcriptsLoaded == false) {
+					loadFile(addressInfo[0].id);
+				}
+			});
+
+			// need to check here if a video is selected and if not load the default
+
+			return false;
+		});
+
 		$('#get-analysis').click(function(){   
 			
 			//loadFile(12);
