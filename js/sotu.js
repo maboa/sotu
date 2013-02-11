@@ -527,19 +527,29 @@ $(document).ready(function(){
 			return false;
 		});
 
-		var currentYear;
+		$('.address-summary .address-tags span').click(function() {
+			if(transcriptsLoaded) {
+				var term = $(this).text();
+				$('#searchStr').val(term);
+				var year = $(this).parent().parent().attr('data-addr');
+				$('.checkboxes input').attr('checked', false);
+				$('#search-addr-' + year).attr('checked', true);
+				$('#search-btn').trigger('click');
+			}
+		});
 
 		$('.address-summary').click(function() {
 			
 			var year = $(this).attr('data-addr');
-			currentYear = year;
 
 			$('.intro').fadeOut();
 			$('.the-analysis').fadeOut();
 
 			playSource = true; // Stop the auto playback, as this was a user GUI action.
 
-			loadFile(year);
+			if(currentAddressIndex < 0 || year !== addressInfo[currentAddressIndex].id) {
+				loadFile(year);
+			}
 
 			return false;
 		});
