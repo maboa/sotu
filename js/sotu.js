@@ -176,7 +176,11 @@ $(document).ready(function(){
 		    .domain([0, yStackMax])
 		    .range([height, 0]);
 
-		var color = d3.scale.category10();
+		// var color = d3.scale.category10();
+		var color = []; // Changed to define an array. Usually this is a function!
+		for(var ci=0, cLen = addressInfo.length; ci < cLen; ci++) {
+			color[ci] = addressInfo[ci].color;
+		}
 
 		var xScale = d3.scale.linear().domain([0,80]).range([0, width]);
 
@@ -197,7 +201,8 @@ $(document).ready(function(){
 		    .data(layers)
 		  .enter().append("g")
 		    .attr("class", "layer")
-		    .style("fill", function(d, i) { return color(i); });
+		    // .style("fill", function(d, i) { return color(i); });
+		    .style("fill", function(d, i) { return color[i]; }); // Note using an array and not usual color(i) functions.
 
 		var rect = layer.selectAll("rect")
 		    .data(function(d) { return d; })
