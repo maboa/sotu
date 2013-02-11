@@ -665,10 +665,12 @@ $(document).ready(function(){
 			} else {
 				initTranscript(p, ai);
 				$('#main-loader').hide();
-				checkStartParam(); // MJP: This probably needs to move elsewhere
-				checkKeywordParam(); // MJP: This probably needs to move elsewhere
 				myPlayer.jPlayer("volume", 1); // max volume
 				currentAddressReady = true; // Video and Transcript ready for use.
+
+				checkStartParam(); // MJP: This probably needs to move elsewhere
+				checkYearParam();
+				checkKeywordParam(); // MJP: This probably needs to move elsewhere
 			}
 		}
 
@@ -1234,6 +1236,17 @@ $(document).ready(function(){
 		}
 
 
+		function checkYearParam() {
+			for(var i=0, iLen=addressInfo.length; i < iLen; i++) {
+				var year = getUrlVars()["y" + addressInfo[i].id];
+				console.log('typeof year = ' + typeof year);
+				if(year !== undefined) {
+					if(year === "0") {
+						$('#search-addr-' + addressInfo[i].id).attr('checked', false);
+					}
+				}
+			}
+		}
 
 		function checkEasterParam() {
 			if (getUrlVars()["t"] != null) {    
@@ -1245,6 +1258,16 @@ $(document).ready(function(){
 			}
 		}
 
+
+		function checkUrlParamsPresent() {
+			if(getUrlVars()["k"] !== undefined) {
+				return true;
+			} else if(getUrlVars()["s"] !== undefined) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 
 		function getUrlVars() {
 			var vars = [], hash;
@@ -1281,5 +1304,7 @@ $(document).ready(function(){
 	  	return false;
 	  });
 
-		
-});    
+	if(checkUrlParamsPresent()) {
+		// close the splash and load the 1st video.
+	}
+});
