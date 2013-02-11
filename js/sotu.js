@@ -308,7 +308,7 @@ $(document).ready(function(){
 			id: "11",
 			title: "State Of The Union Address (Jan 2011)",
 			color: "#2ca02c",
-			transcript: "sotu2009.htm",
+			transcript: "sotu2011.htm",
 			videoM: {
 				lo: "665003303001_2154478437001_012511-SOTU-EN-HD.mp4",
 				me: "665003303001_2154478392001_012511-SOTU-EN-HD.mp4",
@@ -326,7 +326,7 @@ $(document).ready(function(){
 			id: "12",
 			title: "State Of The Union Address (Jan 2012)",
 			color: "#d62728",
-			transcript: "sotu2009.htm",
+			transcript: "sotu2012.htm",
 			videoM: {
 				lo: "665003303001_2154491021001_012412-StateoftheUnion-EN-HD.mp4",
 				me: "665003303001_2154491034001_012412-StateoftheUnion-EN-HD.mp4",
@@ -344,7 +344,7 @@ $(document).ready(function(){
 			id: "13",
 			title: "State Of The Union Address (Feb 2013)",
 			color: "#9467bd",
-			transcript: "sotu2009.htm",
+			transcript: "sotu2013.htm",
 			videoM: {
 				lo: "20090224_JointSession.mp4",
 				me: "20090224_JointSession.mp4",
