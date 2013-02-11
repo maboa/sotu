@@ -188,7 +188,8 @@ $(document).ready(function(){
 	var theScript = [];  
 	var mediaDirM = "http://bc05.ajnm.me/665003303001/";
 	var mediaDirW = "http://webapps.aljazeera.net/aje/custom/debate/d4/";
-	var transcriptDir = "transcripts/";  
+	var transcriptDir = "transcripts/";
+	var posterDir = "";
 
 	var videoM = [];
 	var videoW = [];
@@ -200,6 +201,7 @@ $(document).ready(function(){
 			title: "State Of The Union Address (Feb 2013)",
 			color: "#9467bd",
 			transcript: "sotu2013.htm",
+			poster: "poster2013.jpg",
 			videoM: {
 				lo: "20090224_JointSession.mp4",
 				me: "20090224_JointSession.mp4",
@@ -219,6 +221,7 @@ $(document).ready(function(){
 			title: "State Of The Union Address (Jan 2012)",
 			color: "#d62728",
 			transcript: "sotu2012.htm",
+			poster: "poster2012.jpg",
 			videoM: {
 				lo: "665003303001_2154491021001_012412-StateoftheUnion-EN-HD.mp4",
 				me: "665003303001_2154491034001_012412-StateoftheUnion-EN-HD.mp4",
@@ -237,6 +240,7 @@ $(document).ready(function(){
 			title: "State Of The Union Address (Jan 2011)",
 			color: "#2ca02c",
 			transcript: "sotu2011.htm",
+			poster: "poster2011.jpg",
 			videoM: {
 				lo: "665003303001_2154478437001_012511-SOTU-EN-HD.mp4",
 				me: "665003303001_2154478392001_012511-SOTU-EN-HD.mp4",
@@ -255,6 +259,7 @@ $(document).ready(function(){
 			title: "State Of The Union Address (Jan 2010)",
 			color: "#ff7f0e",
 			transcript: "sotu2010.htm",
+			poster: "poster2010.jpg",
 			videoM: {
 				lo: "665003303001_2154453217001_012710-StateoftheUnion.mp4",
 				me: "665003303001_2154469843001_012710-StateoftheUnion.mp4",
@@ -273,6 +278,7 @@ $(document).ready(function(){
 			title: "The President Addresses A Joint Session of Congress (Feb 2009)",
 			color: "#1f77b4",
 			transcript: "sotu2009.htm",
+			poster: "poster2009.jpg",
 			videoM: {
 				lo: "665003303001_2154457655001_20090224-JointSession.mp4",
 				me: "665003303001_2154461731001_20090224-JointSession.mp4",
@@ -668,10 +674,12 @@ $(document).ready(function(){
 			} else {
 				initTranscript(p, ai);
 				$('#main-loader').hide();
-				checkStartParam(); // MJP: This probably needs to move elsewhere
-				checkKeywordParam(); // MJP: This probably needs to move elsewhere
 				myPlayer.jPlayer("volume", 1); // max volume
 				currentAddressReady = true; // Video and Transcript ready for use.
+
+				checkStartParam(); // MJP: This probably needs to move elsewhere
+				checkYearParam();
+				checkKeywordParam(); // MJP: This probably needs to move elsewhere
 			}
 		}
 
@@ -697,7 +705,9 @@ $(document).ready(function(){
 
 			var mediaMp4 = mediaDirM+videoM['me'];
 			var mediaWebM = mediaDirW+videoW['me'];
-			 
+
+			var poster = posterDir + addressInfo[ai].poster;
+
 			// MJP: Next line appears obsolete.
 			// currentlyPlaying = id;
 
@@ -761,7 +771,7 @@ $(document).ready(function(){
 					$(this).jPlayer("setMedia", {
 						m4v: mediaMp4,
 						webmv: mediaWebM,
-						poster: "poster.jpg"
+						poster: poster
 					});
 					setTimeout(function() {
 						// loadTrans();
@@ -1257,6 +1267,17 @@ $(document).ready(function(){
 		}
 
 
+		function checkYearParam() {
+			for(var i=0, iLen=addressInfo.length; i < iLen; i++) {
+				var year = getUrlVars()["y" + addressInfo[i].id];
+				// console.log('typeof year = ' + typeof year);
+				if(year !== undefined) {
+					if(year === "0") {
+						$('#search-addr-' + addressInfo[i].id).attr('checked', false);
+					}
+				}
+			}
+		}
 
 		function checkEasterParam() {
 			if (getUrlVars()["t"] != null) {    
@@ -1268,6 +1289,16 @@ $(document).ready(function(){
 			}
 		}
 
+
+		function checkUrlParamsPresent() {
+			if(getUrlVars()["k"] !== undefined) {
+				return true;
+			} else if(getUrlVars()["s"] !== undefined) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 
 		function getUrlVars() {
 			var vars = [], hash;
@@ -1304,5 +1335,7 @@ $(document).ready(function(){
 	  	return false;
 	  });
 
-		
-});    
+	if(checkUrlParamsPresent()) {
+		// close the splash and load the 1st video.
+	}
+});
