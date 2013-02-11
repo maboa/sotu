@@ -37,6 +37,7 @@ $(document).ready(function(){
 	var tPause = 0;
 
 	var transcriptsLoaded = false;
+	var performSearchWhenReady = false;
 
 	var currentAddressIndex = -1;
 	var currentAddressReady = false;
@@ -528,13 +529,15 @@ $(document).ready(function(){
 		});
 
 		$('.address-summary .address-tags span').click(function() {
+			var term = $(this).text();
+			$('#searchStr').val(term);
+			var year = $(this).parent().parent().attr('data-addr');
+			$('.checkboxes input').attr('checked', false);
+			$('#search-addr-' + year).attr('checked', true);
 			if(transcriptsLoaded) {
-				var term = $(this).text();
-				$('#searchStr').val(term);
-				var year = $(this).parent().parent().attr('data-addr');
-				$('.checkboxes input').attr('checked', false);
-				$('#search-addr-' + year).attr('checked', true);
 				$('#search-btn').trigger('click');
+			} else {
+				performSearchWhenReady = true;
 			}
 		});
 
@@ -697,6 +700,10 @@ $(document).ready(function(){
 				myPlayer.jPlayer("volume", 1); // max volume
 				currentAddressReady = true; // Video and Transcript ready for use.
 
+				if(performSearchWhenReady) {
+					performSearchWhenReady = false;
+					$('#search-btn').trigger('click');
+				}
 				checkStartParam(); // MJP: This probably needs to move elsewhere
 				checkKeywordParam(); // MJP: This probably needs to move elsewhere
 			}
@@ -974,9 +981,9 @@ $(document).ready(function(){
 
 		$('.close-intro').click(function(){   
 			
-			//loadFile(12);
-
-			$('.intro').fadeOut();
+			$('.intro').fadeOut(function() {
+				loadFile(addressInfo[0].id);
+			});
 			 
 			return false;
 		});
@@ -1286,7 +1293,7 @@ $(document).ready(function(){
 				var s = getUrlVars()["k"];
 				s = s.split('%20').join(' ');
 				$('#searchStr').val(s);
-				checkSearchYearParam();
+				// checkSearchYearParam();
 				$('#search-btn').trigger('click');
 				_gaq.push(['_trackEvent', 'SOTU', 'Keyword parameter', 'Triggered at '+s]);
 			}
@@ -1294,15 +1301,21 @@ $(document).ready(function(){
 
 
 		function checkSearchYearParam() {
+			var idRet = addressInfo[0].id;
+			var getFirstYear = true; // Want the 1st year, going backwards in time. (In the addressInfo array order.)
 			for(var i=0, iLen=addressInfo.length; i < iLen; i++) {
 				var year = getUrlVars()["y" + addressInfo[i].id];
-				// console.log('typeof year = ' + typeof year);
-				if(year !== undefined) {
-					if(year === "0") {
-						$('#search-addr-' + addressInfo[i].id).attr('checked', false);
+				if(year === "1") {
+					$('#search-addr-' + addressInfo[i].id).attr('checked', true);
+					if(getFirstYear) {
+						getFirstYear = false;
+						idRet = addressInfo[i].id;
 					}
+				} else {
+					$('#search-addr-' + addressInfo[i].id).attr('checked', false);
 				}
 			}
+			return idRet;
 		}
 		function checkStartYearParam() {
 			var idRet = addressInfo[0].id;
@@ -1367,8 +1380,8 @@ $(document).ready(function(){
 
 	if(getUrlVars()["k"] !== undefined) {
 		$('.intro').fadeOut(function() {
-			loadFile(addressInfo[0].id);
-			// loadFile(checkSearchYearParam());
+			// loadFile(addressInfo[0].id);
+			loadFile(checkSearchYearParam());
 		});
 	} else if(getUrlVars()["s"] !== undefined) {
 		$('.intro').fadeOut(function() {
