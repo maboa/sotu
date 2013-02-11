@@ -522,12 +522,12 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	border-top-left-radius: 0;
-	z-index: 9999999;
+	z-index: 99;
 }
 
 .analysis {
 	position:absolute;
-	top:28;
+	margin-top:100;
 	left:0;
 	width: 720px;
 	height: 600px;
@@ -545,7 +545,7 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	border-top-left-radius: 0;
-	z-index: 9999999;
+	z-index: 100;
 }
 
 #address-mask {
