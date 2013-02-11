@@ -37,6 +37,7 @@ $(document).ready(function(){
 	var tPause = 0;
 
 	var transcriptsLoaded = false;
+	var performSearchWhenReady = false;
 
 	var currentAddressIndex = -1;
 	var currentAddressReady = false;
@@ -528,13 +529,15 @@ $(document).ready(function(){
 		});
 
 		$('.address-summary .address-tags span').click(function() {
+			var term = $(this).text();
+			$('#searchStr').val(term);
+			var year = $(this).parent().parent().attr('data-addr');
+			$('.checkboxes input').attr('checked', false);
+			$('#search-addr-' + year).attr('checked', true);
 			if(transcriptsLoaded) {
-				var term = $(this).text();
-				$('#searchStr').val(term);
-				var year = $(this).parent().parent().attr('data-addr');
-				$('.checkboxes input').attr('checked', false);
-				$('#search-addr-' + year).attr('checked', true);
 				$('#search-btn').trigger('click');
+			} else {
+				performSearchWhenReady = true;
 			}
 		});
 
@@ -687,6 +690,10 @@ $(document).ready(function(){
 				myPlayer.jPlayer("volume", 1); // max volume
 				currentAddressReady = true; // Video and Transcript ready for use.
 
+				if(performSearchWhenReady) {
+					performSearchWhenReady = false;
+					$('#search-btn').trigger('click');
+				}
 				checkStartParam(); // MJP: This probably needs to move elsewhere
 				checkKeywordParam(); // MJP: This probably needs to move elsewhere
 			}
