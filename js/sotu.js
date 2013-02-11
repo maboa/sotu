@@ -1081,6 +1081,9 @@ $(document).ready(function(){
 			// This var has wide scope. Used in onFrame.
 			theScript = []; // Used for search result playback.
 
+			// Used in creating the sharing url
+			var yearParam = "";
+
 			$('#transcript-content span').css('background-color','white');
 
 			// Want an Array containing 5 Arrays of 16 objects containing x, y and y0 properties.
@@ -1097,6 +1100,8 @@ $(document).ready(function(){
 				searchData[ai] = new Array(bars);
 
 				if($('#search-addr-' + addressInfo[ai].id).is(':checked')) {
+
+					yearParam += "&y"+addressInfo[ai].id+"=1";
 
 					$('#transcript-content-' + ai + ' span').each(function(i) {
 						//console.log($(this).text());
@@ -1223,9 +1228,9 @@ $(document).ready(function(){
 			if (paramStart > 0) {
 				url = winLoc.substr(0,paramStart);
 			}
-			 
+
 			var keyword = searchStr.split(' ').join('%20');
-			var theTweet = "How often was '"+searchStr+"' mentioned? "+url+"?k="+keyword+" "+hashTag;//+"&e="+e;  
+			var theTweet = "How often was '"+searchStr+"' mentioned? "+url+"?k="+keyword+yearParam+"&t=1 "+hashTag;//+"&e="+e;  
 				 
 			$('.share-snippet').empty();
 			$('.share-snippet').append(theTweet);  
@@ -1238,6 +1243,10 @@ $(document).ready(function(){
 
 			$('#fb-link').attr('href',fbLink);
 			$('#fb-link').show();
+
+			$('#search-panel').slideUp();
+			$('#analysis').slideUp();
+			$('#share-panel').slideDown();
 
 			$('.mini-footer').slideUp(function() {
 				$('.footer').slideDown(function() {
