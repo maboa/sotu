@@ -368,7 +368,7 @@ $(document).ready(function(){
 		// loadFile(0); // Now an index to addressInfo array
 
 		// This is the default address loaded on page load
-		loadFile('12'); // Now the id string
+		// loadFile('12'); // Now the id string
 
 		function initPopcorn(id) {   
 			var p = Popcorn(id).code({
@@ -512,41 +512,7 @@ $(document).ready(function(){
 			
 			var year = $(this).attr('data-addr');
 
-			// $('.address-summary').css('backgroundColor','#eee').css('border-width','0px');
-/*			
-			var colour = "#fff";
-			var titleText = "";
-
-			switch (year) {
-				case "13":
-					colour = "#9467bd";
-					titleText = "State Of The Union Address (Feb 2013)";
-					break;
-				case "12":
-					colour = "#d62728";
-					titleText = "State Of The Union Address (Jan 2012)";
-					break;
-				case "11":
-					colour = "#2ca02c";
-					titleText = "State Of The Union Address (Jan 2011)";
-					break;
-				case "10":
-					colour = "#ff7f0e";
-					titleText = "State Of The Union Address (Jan 2010)";
-					break;
-				case "09":
-					colour = "#1f77b4";
-					titleText = "The President Addresses A Joint Session of Congress (Feb 2009)";
-
-					break;
-			}
-*/
-			// var addrInfo = setTitle(year);
-
-			// $(this).css('backgroundColor','#fff').css('border-style','solid').css('border-bottom-width','2px').css('border-top-width','2px').css('border-color',colour);
-			// $(this).css('backgroundColor','#fff').css('border-style','solid').css('border-bottom-width','2px').css('border-top-width','2px').css('border-color',addrInfo.color);
-
-			// $('.control').css('backgroundColor',colour).text(titleText);
+			$('.intro').fadeOut();
 
 			loadFile(year);
 
