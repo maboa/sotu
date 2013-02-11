@@ -221,7 +221,7 @@ $(document).ready(function(){
 			title: "State Of The Union Address (Jan 2012)",
 			color: "#d62728",
 			transcript: "sotu2012.htm",
-			poster: "poster2012.jpg",
+			poster: "2012Poster.jpg",
 			videoM: {
 				lo: "665003303001_2154491021001_012412-StateoftheUnion-EN-HD.mp4",
 				me: "665003303001_2154491034001_012412-StateoftheUnion-EN-HD.mp4",
@@ -240,7 +240,7 @@ $(document).ready(function(){
 			title: "State Of The Union Address (Jan 2011)",
 			color: "#2ca02c",
 			transcript: "sotu2011.htm",
-			poster: "poster2011.jpg",
+			poster: "2011Poster.jpg",
 			videoM: {
 				lo: "665003303001_2154478437001_012511-SOTU-EN-HD.mp4",
 				me: "665003303001_2154478392001_012511-SOTU-EN-HD.mp4",
@@ -259,7 +259,7 @@ $(document).ready(function(){
 			title: "State Of The Union Address (Jan 2010)",
 			color: "#ff7f0e",
 			transcript: "sotu2010.htm",
-			poster: "poster2010.jpg",
+			poster: "2010Poster.jpg",
 			videoM: {
 				lo: "665003303001_2154453217001_012710-StateoftheUnion.mp4",
 				me: "665003303001_2154469843001_012710-StateoftheUnion.mp4",
@@ -278,7 +278,7 @@ $(document).ready(function(){
 			title: "The President Addresses A Joint Session of Congress (Feb 2009)",
 			color: "#1f77b4",
 			transcript: "sotu2009.htm",
-			poster: "poster2009.jpg",
+			poster: "2009Poster.jpg",
 			videoM: {
 				lo: "665003303001_2154457655001_20090224-JointSession.mp4",
 				me: "665003303001_2154461731001_20090224-JointSession.mp4",
@@ -552,6 +552,16 @@ $(document).ready(function(){
 			}
 
 			return false;
+		});
+
+		$('.thumb').hover(function() {
+			$(this).hide();
+			$(this).next().show();
+		});
+
+		$('.thumbOn').mouseout(function() {
+			$(this).hide();
+			$(this).prev().show();
 		});
 
 		// $('.address-summary [data-addr="value"]')
