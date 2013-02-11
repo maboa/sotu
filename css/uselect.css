@@ -524,3 +524,16 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 	border-top-left-radius: 0;
 	z-index: 9999999;
 }
+
+#address-mask {
+	position:absolute;
+	top:0;
+	right:0;
+	width: 246px;
+	height: 64px;
+	padding:8px;
+	background-color:#fcfcfc;
+	opacity:0.8;
+	filter:alpha(opacity=80); /* For IE8 and earlier */
+	z-index: 9999999;	
+}
