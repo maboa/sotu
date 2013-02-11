@@ -267,16 +267,16 @@ $(document).ready(function(){
 
 	// Array of Objects to hold media information.
 	var addressInfo = [
-		{
-			id: "09",
-			title: "The President Addresses A Joint Session of Congress (Feb 2009)",
-			color: "#1f77b4",
-			transcript: "sotu2009.htm",
+/*		{
+			id: "13",
+			title: "State Of The Union Address (Feb 2013)",
+			color: "#9467bd",
+			transcript: "sotu2013.htm",
 			videoM: {
-				lo: "665003303001_2154457655001_20090224-JointSession.mp4",
-				me: "665003303001_2154461731001_20090224-JointSession.mp4",
-				hi: "665003303001_2154473025001_20090224-JointSession.mp4",
-				hd: "665003303001_2154497657001_20090224-JointSession.mp4"
+				lo: "20090224_JointSession.mp4",
+				me: "20090224_JointSession.mp4",
+				hi: "20090224_JointSession.mp4",
+				hd: "20090224_JointSession.mp4"
 			},
 			videoW: {
 				lo: "debate4.webm",
@@ -285,17 +285,17 @@ $(document).ready(function(){
 				hd: "debate4.webm"
 			}
 		},
-		// The rest only the id, title and color have been set
+*/
 		{
-			id: "10",
-			title: "State Of The Union Address (Jan 2010)",
-			color: "#ff7f0e",
-			transcript: "sotu2010.htm",
+			id: "12",
+			title: "State Of The Union Address (Jan 2012)",
+			color: "#d62728",
+			transcript: "sotu2012.htm",
 			videoM: {
-				lo: "665003303001_2154453217001_012710-StateoftheUnion.mp4",
-				me: "665003303001_2154469843001_012710-StateoftheUnion.mp4",
-				hi: "665003303001_2154467481001_012710-StateoftheUnion.mp4",
-				hd: "665003303001_2154491005001_012710-StateoftheUnion.mp4"
+				lo: "665003303001_2154491021001_012412-StateoftheUnion-EN-HD.mp4",
+				me: "665003303001_2154491034001_012412-StateoftheUnion-EN-HD.mp4",
+				hi: "665003303001_2154502042001_012412-StateoftheUnion-EN-HD.mp4",
+				hd: "665003303001_2154502042001_012412-StateoftheUnion-EN-HD.mp4"
 			},
 			videoW: {
 				lo: "debate4.webm",
@@ -323,15 +323,15 @@ $(document).ready(function(){
 			}
 		},
 		{
-			id: "12",
-			title: "State Of The Union Address (Jan 2012)",
-			color: "#d62728",
-			transcript: "sotu2012.htm",
+			id: "10",
+			title: "State Of The Union Address (Jan 2010)",
+			color: "#ff7f0e",
+			transcript: "sotu2010.htm",
 			videoM: {
-				lo: "665003303001_2154491021001_012412-StateoftheUnion-EN-HD.mp4",
-				me: "665003303001_2154491034001_012412-StateoftheUnion-EN-HD.mp4",
-				hi: "665003303001_2154502042001_012412-StateoftheUnion-EN-HD.mp4",
-				hd: "665003303001_2154502042001_012412-StateoftheUnion-EN-HD.mp4"
+				lo: "665003303001_2154453217001_012710-StateoftheUnion.mp4",
+				me: "665003303001_2154469843001_012710-StateoftheUnion.mp4",
+				hi: "665003303001_2154467481001_012710-StateoftheUnion.mp4",
+				hd: "665003303001_2154491005001_012710-StateoftheUnion.mp4"
 			},
 			videoW: {
 				lo: "debate4.webm",
@@ -341,15 +341,15 @@ $(document).ready(function(){
 			}
 		},
 		{
-			id: "13",
-			title: "State Of The Union Address (Feb 2013)",
-			color: "#9467bd",
-			transcript: "sotu2013.htm",
+			id: "09",
+			title: "The President Addresses A Joint Session of Congress (Feb 2009)",
+			color: "#1f77b4",
+			transcript: "sotu2009.htm",
 			videoM: {
-				lo: "20090224_JointSession.mp4",
-				me: "20090224_JointSession.mp4",
-				hi: "20090224_JointSession.mp4",
-				hd: "20090224_JointSession.mp4"
+				lo: "665003303001_2154457655001_20090224-JointSession.mp4",
+				me: "665003303001_2154461731001_20090224-JointSession.mp4",
+				hi: "665003303001_2154473025001_20090224-JointSession.mp4",
+				hd: "665003303001_2154497657001_20090224-JointSession.mp4"
 			},
 			videoW: {
 				lo: "debate4.webm",
@@ -357,7 +357,7 @@ $(document).ready(function(){
 				hi: "debate4.webm",
 				hd: "debate4.webm"
 			}
-		},
+		}
 	];
 
 /*
@@ -442,38 +442,37 @@ $(document).ready(function(){
 
 		// loadFile('sotu2009');
 		// loadFile(0); // Now an index to addressInfo array
-		loadFile('09'); // Now the id string
+
+		// This is the default address loaded on page load
+		loadFile('12'); // Now the id string
 
 		function initPopcorn(id) {   
-			var p = Popcorn(id)
-			.code({
-			  start: 0,
-		    onStart: function (options) {
-		         //console.log('start')
-		     },
-		     onFrame: (function () {
+			var p = Popcorn(id).code({
+				start: 0,
+				onStart: function (options) {
+					//console.log('start')
+				},
+				onFrame: (function () {
 
+					// Warning: This might start polling before the transcript is loaded and ready.
 
+					var count = 0;
+					var endedLoop = false;
 
-				// Warning: This might start polling before the transcript is loaded and ready.
+					return function (options) {
 
-		        var count = 0;
-		        var endedLoop = false;
-		        
-		        return function (options) {
+						//console.log('here');
 
-		       	//console.log('here');
-					
-            var now = this.Popcorn.instances[0].media.currentTime*1000;  
+						var now = this.Popcorn.instances[0].media.currentTime*1000;  
 
-            //console.log("now="+now/100);
-            //console.log("end="+endTime); 
+						//console.log("now="+now/100);
+						//console.log("end="+endTime); 
 
-            if (endTime && endTime < (now / 100) ) {
-            	myPlayer.jPlayer("pause");
-            	endTime = null;
-            }
-					
+						if (endTime && endTime < (now / 100) ) {
+							myPlayer.jPlayer("pause");
+							endTime = null;
+						}
+							
 						var src = "";
 
 						if (endedLoop == true) {
@@ -490,12 +489,10 @@ $(document).ready(function(){
 
 							//console.log('in');
 
-          		//myPlayer.jPlayer("pause"); // MJP: Looks like old code. Commented out.
+							//myPlayer.jPlayer("pause"); // MJP: Looks like old code. Commented out.
 							index = parseInt(index);
 
 							// check for the end
-
-							
 
 							if (theScript.length < (index+1) && now > end) {
 								myPlayer.jPlayer("pause");
@@ -503,8 +500,6 @@ $(document).ready(function(){
 								//console.log("paused");
 
 								// check for loop
-
-								
 
 								if (getUrlVars()["l"] != null) {
 									endedLoop = true;
@@ -518,8 +513,6 @@ $(document).ready(function(){
 
 								// moving to the next block in the target
 
-								      
-
 								start = theScript[index].s;   
 								end = theScript[index].e;
 
@@ -527,33 +520,28 @@ $(document).ready(function(){
 								//console.log(end);
 								//console.log(now);
 
-							
 								//myPlayer.bind($.jPlayer.event.progress + ".fixStart", function(event) {
 									//console.log("p now="+now);
 									//console.log("p end="+end);
 									// Warning: The variable 'start' must not be changed before this handler is called.
-							   // $(this).unbind(".fixStart"); 
-							    //console.log('log about to play from '+start);
+									// $(this).unbind(".fixStart"); 
+									//console.log('log about to play from '+start);
 									myPlayer.jPlayer("play",start/1000);
 									index = index + 1; 
 									//end = theScript[index].e;
 								//});
-
 				
 								//myPlayer.jPlayer("pause",start);   
 							}
-
-
-
 						}
-		      }
-		    })(),
-		    onEnd: function (options) {
-		         //console.log('end');
-		    }
+					}
+				})(),
+				onEnd: function (options) {
+					//console.log('end');
+				}
 			}); 
 			return p; 
-		};
+		}
 
 		$('.quality-switch').click(function(){
 			var timeOnClick = currentTime;
