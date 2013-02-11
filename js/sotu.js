@@ -1266,6 +1266,17 @@ $(document).ready(function(){
 			return false;
 		});
 
+		$('#close-chart').click(function() {
+			$('.footer').slideUp(function() {
+				$('.mini-footer').slideDown(function() {
+				});
+				$('.body.row').animate({bottom: '80px'}, 500);
+				$('#fade-bot').animate({top: '634px'}, 500);
+				$('#transcript-inst-panel').fadeIn();
+			});
+			return false;
+		});
+
 		$('.search-tag').click(function() {
 			var term = $(this).text();
 			$('#searchStr').val(term);
