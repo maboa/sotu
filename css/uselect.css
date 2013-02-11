@@ -524,7 +524,7 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 	top:0;
 	left:0;
 	width: 720px;
-	height: 600px;
+	height: 630px;
 	padding:8px;
 	background-color:#fcfcfc;
 	font-size:16px;
@@ -532,7 +532,7 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 	overflow-y: auto;
 	color: #333;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	z-index: 1000;
+	z-index: 9999999999;
 }
 
 .year-analysis {
