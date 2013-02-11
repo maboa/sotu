@@ -521,10 +521,12 @@ $(document).ready(function(){
 			return false;
 		});
 
+		var currentYear;
 
 		$('.address-summary').click(function() {
 			
 			var year = $(this).attr('data-addr');
+			currentYear = year;
 
 			$('.intro').fadeOut();
 
