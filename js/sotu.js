@@ -36,6 +36,8 @@ $(document).ready(function(){
 	var maxData = 0;
 	var tPause = 0;
 
+	var currentAddressIndex = -1;
+	var currentAddressReady = false;
 
 	// NB: IE8 D3 support https://github.com/mbostock/d3/issues/619
 	// Added Sizzle and es5-shim, but fails silently in IE8.
@@ -385,80 +387,90 @@ $(document).ready(function(){
 
 					return function (options) {
 
-						//console.log('here');
+						if(currentAddressReady) {
 
-						var now = this.Popcorn.instances[0].media.currentTime*1000;  
+							//console.log('here');
 
-						//console.log("now="+now/100);
-						//console.log("end="+endTime); 
+							// var now = this.Popcorn.instances[0].media.currentTime*1000;
+							var now = p.media.currentTime*1000;
 
-						if (endTime && endTime < (now / 100) ) {
-							myPlayer.jPlayer("pause");
-							endTime = null;
-						}
-							
-						var src = "";
+							// console.log("now="+now/100);
+							// console.log("end="+endTime); 
 
-						if (endedLoop == true) {
-							index = 0;
-							endedLoop = false;
-							end = -1;
-							//console.log("e now="+now);
-							//console.log("e end="+end);
-							myPlayer.jPlayer("pause");
-							//console.log('ended loop');
-						}
-
-						if (now > end && playSource == false) {   
-
-							//console.log('in');
-
-							//myPlayer.jPlayer("pause"); // MJP: Looks like old code. Commented out.
-							index = parseInt(index);
-
-							// check for the end
-
-							if (theScript.length < (index+1) && now > end) {
+							if (endTime && endTime < (now / 100) ) {
 								myPlayer.jPlayer("pause");
+								endTime = null;
+							}
+								
+							var src = "";
 
-								//console.log("paused");
+							if (endedLoop == true) {
+								index = 0;
+								endedLoop = false;
+								end = -1;
+								//console.log("e now="+now);
+								//console.log("e end="+end);
+								myPlayer.jPlayer("pause");
+								//console.log('ended loop');
+							}
 
-								// check for loop
+							if (now > end && playSource == false) {   
 
-								if (getUrlVars()["l"] != null) {
-									endedLoop = true;
-								} else {
-									tPause = 0;
-									playSource = true;
+								//console.log('in');
+
+								//myPlayer.jPlayer("pause"); // MJP: Looks like old code. Commented out.
+								index = parseInt(index);
+
+								// check for the end
+
+								if (theScript.length < (index+1) && now > end) {
+									myPlayer.jPlayer("pause");
+
+									//console.log("paused");
+
+									// check for loop
+
+									if (getUrlVars()["l"] != null) {
+										endedLoop = true;
+									} else {
+										tPause = 0;
+										playSource = true;
+									}
+								} 
+								
+								if (theScript.length > index) {  
+
+									// moving to the next block in the target
+
+									if(theScript[index].ai !== currentAddressIndex) {
+										end = -1;
+										loadFile(addressInfo[theScript[index].ai].id); // Fn uses the id, not the index.
+										return; // exit this onFrame execution.
+									}
+
+									start = theScript[index].s;   
+									end = theScript[index].e;
+
+									//console.log(start);
+									//console.log(end);
+									//console.log(now);
+
+									//myPlayer.bind($.jPlayer.event.progress + ".fixStart", function(event) {
+										//console.log("p now="+now);
+										//console.log("p end="+end);
+										// Warning: The variable 'start' must not be changed before this handler is called.
+										// $(this).unbind(".fixStart"); 
+										//console.log('log about to play from '+start);
+										myPlayer.jPlayer("play",start/1000);
+										index = index + 1; 
+										//end = theScript[index].e;
+									//});
+					
+									//myPlayer.jPlayer("pause",start);   
 								}
-							} 
-							
-							if (theScript.length > index) {  
-
-								// moving to the next block in the target
-
-								start = theScript[index].s;   
-								end = theScript[index].e;
-
-								//console.log(start);
-								//console.log(end);
-								//console.log(now);
-
-								//myPlayer.bind($.jPlayer.event.progress + ".fixStart", function(event) {
-									//console.log("p now="+now);
-									//console.log("p end="+end);
-									// Warning: The variable 'start' must not be changed before this handler is called.
-									// $(this).unbind(".fixStart"); 
-									//console.log('log about to play from '+start);
-									myPlayer.jPlayer("play",start/1000);
-									index = index + 1; 
-									//end = theScript[index].e;
-								//});
-				
-								//myPlayer.jPlayer("pause",start);   
 							}
 						}
-					}
+					};
 				})(),
 				onEnd: function (options) {
 					//console.log('end');
@@ -651,6 +663,7 @@ $(document).ready(function(){
 				checkStartParam(); // MJP: This probably needs to move elsewhere
 				checkKeywordParam(); // MJP: This probably needs to move elsewhere
 				myPlayer.jPlayer("volume", 1); // max volume
+				currentAddressReady = true; // Video and Transcript ready for use.
 			}
 		}
 
@@ -660,6 +673,10 @@ $(document).ready(function(){
 			if(ai < 0) {
 				return; // invalid address id.
 			}
+
+			// Wide scope vars used in onFrame
+			currentAddressIndex = ai;
+			currentAddressReady = false;
 
 			// Setup the legacy variables
 			videoM = addressInfo[ai].videoM;
@@ -973,7 +990,10 @@ $(document).ready(function(){
 			var demCount = 0; // Obsolete
 			var repCount = 0; // Obsolete
 
-			var searchData = [];
+			var searchData = []; // Used for chart
+
+			// This var has wide scope. Used in onFrame.
+			theScript = []; // Used for search result playback.
 
 			$('#transcript-content span').css('background-color','white');
 
@@ -984,7 +1004,7 @@ $(document).ready(function(){
 			// The y property is the number of incidents (found by the search).
 			// The y0 property is the sum of all the previous y values in that time period.
 
-			// Will want to wrap this round the whole search.
+			// Search through each transcript in turn.
 			$.each(addressInfo, function(ai) {
 				//
 				matches[ai] = [];
@@ -1026,6 +1046,7 @@ $(document).ready(function(){
 								// timeSpan.e = parseInt($(this).attr(dataMs))+parseInt(tPause);
 								timeSpan.s = parseInt(thisPara.children(':first').attr(dataMs));
 								timeSpan.e = parseInt(thisPara.children(':last').attr(dataMs))+parseInt(1000);
+								timeSpan.ai = ai;
 								//console.log('tp='+tPause);
 								
 
@@ -1043,8 +1064,9 @@ $(document).ready(function(){
 								}
 
 								if(theScript.length > 0) {
-									if(theScript[theScript.length-1].s !== timeSpan.s) {
-										// Should really check it is a different transcript too. (When we do that bit.)
+									var previous = theScript.length-1;
+									// Check the previous result does not point at the same Address and Paragraph
+									if(theScript[previous].ai !== timeSpan.ai || theScript[previous].s !== timeSpan.s) {
 										theScript.push(timeSpan); 
 									}
 								} else {
@@ -1161,7 +1183,7 @@ $(document).ready(function(){
 		$('#search-playback').click(function() {
 			//
 			playSource = false;
-			tPause = 1000; // To late here, since theScript[] already pushed with timeSpan with .e using zero.
+			// tPause = 1000; // To late here, since theScript[] already pushed with timeSpan with .e using zero.
 			end = -1;
 			index = 0;
 			return false;
