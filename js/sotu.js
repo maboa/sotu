@@ -1283,7 +1283,7 @@ $(document).ready(function(){
 				var s = getUrlVars()["k"];
 				s = s.split('%20').join(' ');
 				$('#searchStr').val(s);
-				checkSearchYearParam();
+				// checkSearchYearParam();
 				$('#search-btn').trigger('click');
 				_gaq.push(['_trackEvent', 'SOTU', 'Keyword parameter', 'Triggered at '+s]);
 			}
@@ -1291,15 +1291,21 @@ $(document).ready(function(){
 
 
 		function checkSearchYearParam() {
+			var idRet = addressInfo[0].id;
+			var getFirstYear = true; // Want the 1st year, going backwards in time. (In the addressInfo array order.)
 			for(var i=0, iLen=addressInfo.length; i < iLen; i++) {
 				var year = getUrlVars()["y" + addressInfo[i].id];
-				// console.log('typeof year = ' + typeof year);
-				if(year !== undefined) {
-					if(year === "0") {
-						$('#search-addr-' + addressInfo[i].id).attr('checked', false);
+				if(year === "1") {
+					$('#search-addr-' + addressInfo[i].id).attr('checked', true);
+					if(getFirstYear) {
+						getFirstYear = false;
+						idRet = addressInfo[i].id;
 					}
+				} else {
+					$('#search-addr-' + addressInfo[i].id).attr('checked', false);
 				}
 			}
+			return idRet;
 		}
 		function checkStartYearParam() {
 			var idRet = addressInfo[0].id;
@@ -1364,8 +1370,8 @@ $(document).ready(function(){
 
 	if(getUrlVars()["k"] !== undefined) {
 		$('.intro').fadeOut(function() {
-			loadFile(addressInfo[0].id);
-			// loadFile(checkSearchYearParam());
+			// loadFile(addressInfo[0].id);
+			loadFile(checkSearchYearParam());
 		});
 	} else if(getUrlVars()["s"] !== undefined) {
 		$('.intro').fadeOut(function() {
