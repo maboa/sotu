@@ -677,7 +677,6 @@ $(document).ready(function(){
 				currentAddressReady = true; // Video and Transcript ready for use.
 
 				checkStartParam(); // MJP: This probably needs to move elsewhere
-				checkYearParam();
 				checkKeywordParam(); // MJP: This probably needs to move elsewhere
 			}
 		}
@@ -1239,14 +1238,15 @@ $(document).ready(function(){
 			if (getUrlVars()["k"] != null) {    
 				var s = getUrlVars()["k"];
 				s = s.split('%20').join(' ');
-    		$('#searchStr').val(s);
-    		$('#search-btn').trigger('click');
+				$('#searchStr').val(s);
+				checkSearchYearParam();
+				$('#search-btn').trigger('click');
 				_gaq.push(['_trackEvent', 'SOTU', 'Keyword parameter', 'Triggered at '+s]);
 			}
 		}
 
 
-		function checkYearParam() {
+		function checkSearchYearParam() {
 			for(var i=0, iLen=addressInfo.length; i < iLen; i++) {
 				var year = getUrlVars()["y" + addressInfo[i].id];
 				// console.log('typeof year = ' + typeof year);
@@ -1256,6 +1256,20 @@ $(document).ready(function(){
 					}
 				}
 			}
+		}
+		function checkStartYearParam() {
+			var idRet = addressInfo[0].id;
+			for(var i=0, iLen=addressInfo.length; i < iLen; i++) {
+				var year = getUrlVars()["y" + addressInfo[i].id];
+				// console.log('typeof year = ' + typeof year);
+				if(year !== undefined) {
+					if(year === "1") {
+						idRet = addressInfo[i].id;
+						break;
+					}
+				}
+			}
+			return idRet;
 		}
 
 		function checkEasterParam() {
@@ -1268,16 +1282,6 @@ $(document).ready(function(){
 			}
 		}
 
-
-		function checkUrlParamsPresent() {
-			if(getUrlVars()["k"] !== undefined) {
-				return true;
-			} else if(getUrlVars()["s"] !== undefined) {
-				return true;
-			} else {
-				return false;
-			}
-		}
 
 		function getUrlVars() {
 			var vars = [], hash;
@@ -1314,7 +1318,14 @@ $(document).ready(function(){
 	  	return false;
 	  });
 
-	if(checkUrlParamsPresent()) {
-		// close the splash and load the 1st video.
+	if(getUrlVars()["k"] !== undefined) {
+		$('.intro').fadeOut(function() {
+			loadFile(addressInfo[0].id);
+			// loadFile(checkSearchYearParam());
+		});
+	} else if(getUrlVars()["s"] !== undefined) {
+		$('.intro').fadeOut(function() {
+			loadFile(checkStartYearParam());
+		});
 	}
 });
