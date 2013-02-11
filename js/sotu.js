@@ -527,19 +527,29 @@ $(document).ready(function(){
 			return false;
 		});
 
-		var currentYear;
+		$('.address-summary .address-tags span').click(function() {
+			if(transcriptsLoaded) {
+				var term = $(this).text();
+				$('#searchStr').val(term);
+				var year = $(this).parent().parent().attr('data-addr');
+				$('.checkboxes input').attr('checked', false);
+				$('#search-addr-' + year).attr('checked', true);
+				$('#search-btn').trigger('click');
+			}
+		});
 
 		$('.address-summary').click(function() {
 			
 			var year = $(this).attr('data-addr');
-			currentYear = year;
 
 			$('.intro').fadeOut();
 			$('.the-analysis').fadeOut();
 
 			playSource = true; // Stop the auto playback, as this was a user GUI action.
 
-			loadFile(year);
+			if(currentAddressIndex < 0 || year !== addressInfo[currentAddressIndex].id) {
+				loadFile(year);
+			}
 
 			return false;
 		});
@@ -678,7 +688,6 @@ $(document).ready(function(){
 				currentAddressReady = true; // Video and Transcript ready for use.
 
 				checkStartParam(); // MJP: This probably needs to move elsewhere
-				checkYearParam();
 				checkKeywordParam(); // MJP: This probably needs to move elsewhere
 			}
 		}
@@ -1222,6 +1231,12 @@ $(document).ready(function(){
 			return false;
 		});
 
+		$('.search-tag').click(function() {
+			var term = $(this).text();
+			$('#searchStr').val(term);
+			$('#search-btn').trigger('click');
+		});
+
 		$('#search-playback').click(function() {
 			//
 			playSource = false;
@@ -1260,14 +1275,15 @@ $(document).ready(function(){
 			if (getUrlVars()["k"] != null) {    
 				var s = getUrlVars()["k"];
 				s = s.split('%20').join(' ');
-    		$('#searchStr').val(s);
-    		$('#search-btn').trigger('click');
+				$('#searchStr').val(s);
+				checkSearchYearParam();
+				$('#search-btn').trigger('click');
 				_gaq.push(['_trackEvent', 'SOTU', 'Keyword parameter', 'Triggered at '+s]);
 			}
 		}
 
 
-		function checkYearParam() {
+		function checkSearchYearParam() {
 			for(var i=0, iLen=addressInfo.length; i < iLen; i++) {
 				var year = getUrlVars()["y" + addressInfo[i].id];
 				// console.log('typeof year = ' + typeof year);
@@ -1277,6 +1293,20 @@ $(document).ready(function(){
 					}
 				}
 			}
+		}
+		function checkStartYearParam() {
+			var idRet = addressInfo[0].id;
+			for(var i=0, iLen=addressInfo.length; i < iLen; i++) {
+				var year = getUrlVars()["y" + addressInfo[i].id];
+				// console.log('typeof year = ' + typeof year);
+				if(year !== undefined) {
+					if(year === "1") {
+						idRet = addressInfo[i].id;
+						break;
+					}
+				}
+			}
+			return idRet;
 		}
 
 		function checkEasterParam() {
@@ -1289,16 +1319,6 @@ $(document).ready(function(){
 			}
 		}
 
-
-		function checkUrlParamsPresent() {
-			if(getUrlVars()["k"] !== undefined) {
-				return true;
-			} else if(getUrlVars()["s"] !== undefined) {
-				return true;
-			} else {
-				return false;
-			}
-		}
 
 		function getUrlVars() {
 			var vars = [], hash;
@@ -1335,7 +1355,14 @@ $(document).ready(function(){
 	  	return false;
 	  });
 
-	if(checkUrlParamsPresent()) {
-		// close the splash and load the 1st video.
+	if(getUrlVars()["k"] !== undefined) {
+		$('.intro').fadeOut(function() {
+			loadFile(addressInfo[0].id);
+			// loadFile(checkSearchYearParam());
+		});
+	} else if(getUrlVars()["s"] !== undefined) {
+		$('.intro').fadeOut(function() {
+			loadFile(checkStartYearParam());
+		});
 	}
 });
