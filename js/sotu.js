@@ -30,6 +30,8 @@ $(document).ready(function(){
 	$('#searchStr').focus();
 	$('#searchStr').attr('value',searchDefault);
 
+	$('#share-panel').hide();
+
 	var bars = 16; // 40;
 	var data = new Array(bars);
 
@@ -38,6 +40,7 @@ $(document).ready(function(){
 
 	var transcriptsLoaded = false;
 	var performSearchWhenReady = false;
+	var thisIsTheFirstTime = true;
 
 	var currentAddressIndex = -1;
 	var currentAddressReady = false;
@@ -699,13 +702,15 @@ $(document).ready(function(){
 				$('#main-loader').hide();
 				myPlayer.jPlayer("volume", 1); // max volume
 				currentAddressReady = true; // Video and Transcript ready for use.
-
 				if(performSearchWhenReady) {
 					performSearchWhenReady = false;
 					$('#search-btn').trigger('click');
 				}
-				checkStartParam(); // MJP: This probably needs to move elsewhere
-				checkKeywordParam(); // MJP: This probably needs to move elsewhere
+				if(thisIsTheFirstTime) {
+					thisIsTheFirstTime = false;
+					checkStartParam(); // MJP: This probably needs to move elsewhere
+					checkKeywordParam(); // MJP: This probably needs to move elsewhere
+				}
 			}
 		}
 
@@ -891,7 +896,10 @@ $(document).ready(function(){
 			
 			var s = Math.floor(parseInt(startSpan.getAttribute(dataMs))/100); 
 			var e = Math.floor(parseInt(endSpan.getAttribute(dataMs))/100);   
-			
+
+			var year = addressInfo[currentAddressIndex].id;
+			var yearParam = "y"+year+"=1";
+
 			// Make sure s < e
 			
 			if (s > e) {
@@ -915,7 +923,7 @@ $(document).ready(function(){
 					url = winLoc.substr(0,paramStart);
 				}
 			 
-				var theTweet = "'"+tweetable+"' "+url+"?s="+s+"-"+e+" "+hashTag;//+"&e="+e;  
+				var theTweet = "'"+tweetable+"' "+url+"?s="+s+"-"+e+"&"+yearParam+" "+hashTag;//+"&e="+e;  
 				 
 				$('.share-snippet').empty();
 				$('.share-snippet').append(theTweet);  
@@ -932,9 +940,19 @@ $(document).ready(function(){
 
 				//http://www.facebook.com/sharer.php?s=100&p[title]=titlehere&p[url]=http://www.yoururlhere.com&p[summary]=yoursummaryhere&p[images][0]=http://www.urltoyourimage.com
 
+				$('#search-panel').slideUp();
+				$('#analysis').slideUp();
+				$('#share-panel').slideDown();
+
 				_gaq.push(['_trackEvent', 'SOTU', 'Tweet generated', 'Tweet content '+theTweet]);
 			} 
 		}); 
+
+		$('#share-panel .close-btn').click(function() {
+			$('#search-panel').slideDown();
+			$('#analysis').slideDown();
+			$('#share-panel').slideUp();
+		});
 
 		$('#transcript-content-hint').click(function() {
 			$(this).fadeOut('slow');

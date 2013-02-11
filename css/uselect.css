@@ -557,3 +557,7 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 	filter:alpha(opacity=80); /* For IE8 and earlier */
 	z-index: 9999999;	
 }
+
+.close-btn {
+	cursor: pointer;
+}
