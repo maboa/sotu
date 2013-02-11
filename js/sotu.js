@@ -1221,6 +1221,12 @@ $(document).ready(function(){
 			return false;
 		});
 
+		$('.search-tag').click(function() {
+			var term = $(this).text();
+			$('#searchStr').val(term);
+			$('#search-btn').trigger('click');
+		});
+
 		$('#search-playback').click(function() {
 			//
 			playSource = false;
