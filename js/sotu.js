@@ -964,9 +964,9 @@ $(document).ready(function(){
 
 		$('.close-intro').click(function(){   
 			
-			//loadFile(12);
-
-			$('.intro').fadeOut();
+			$('.intro').fadeOut(function() {
+				loadFile(addressInfo[0].id);
+			});
 			 
 			return false;
 		});
