@@ -529,6 +529,7 @@ $(document).ready(function(){
 			currentYear = year;
 
 			$('.intro').fadeOut();
+			$('.the-analysis').fadeOut();
 
 			playSource = true; // Stop the auto playback, as this was a user GUI action.
 
@@ -938,6 +939,26 @@ $(document).ready(function(){
 				$('#instructions').fadeIn();
 			}
 			 
+			return false;
+		});
+
+
+		$('.close-intro').click(function(){   
+			
+			//loadFile(12);
+
+			$('.intro').fadeOut();
+			 
+			return false;
+		});
+
+		$('#get-analysis').click(function(){   
+			
+			//loadFile(12);
+
+			$('.intro').fadeOut();
+			$('.the-analysis').fadeIn();
+			
 			return false;
 		});
 
