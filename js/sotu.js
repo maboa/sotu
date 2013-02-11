@@ -36,6 +36,8 @@ $(document).ready(function(){
 	var maxData = 0;
 	var tPause = 0;
 
+	var transcriptsLoaded = false;
+
 	var currentAddressIndex = -1;
 	var currentAddressReady = false;
 
@@ -648,7 +650,8 @@ $(document).ready(function(){
 				});
 			} else {
 				// Finished loading transcripts
-				console.log('loaded hidden transcripts');
+				// console.log('loaded hidden transcripts');
+				transcriptsLoaded = true;
 				prepareMultiTranscripts(p, ai);
 			}
 		};
@@ -976,6 +979,10 @@ $(document).ready(function(){
 		var hitsDetails;
 
 		$('#search-btn').click(function(e){   
+
+			if(!transcriptsLoaded) {
+				return false; // Exit now as nothing to search yet.
+			}
 
 			if (e.originalEvent instanceof MouseEvent) {
 				//console.log('cleared');
