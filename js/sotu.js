@@ -42,87 +42,6 @@ $(document).ready(function(){
 	// NB: IE8 D3 support https://github.com/mbostock/d3/issues/619
 	// Added Sizzle and es5-shim, but fails silently in IE8.
 
-	// Expose these functions to main scope.
-	var initPieCharts = function() {};
-
-
-		// Closure to keep local vars away from main scope.
-	(function() {
-		// var pie, arc, arcs, arcLabels, pie_dur, r;
-
-		var w = 52, //width
-			h = 52, //height
-			r = 20, //radius
-			pie_dur = 2000, // 750; // ms
-			// color = d3.scale.category20c(), // builtin range of colors
-			color = ["#444","#fff"], // Changed to define an array. Usually this is a function!
-			pie = d3.layout.pie().sort(null),
-			arc = d3.svg.arc().outerRadius(r), //this will create <path> elements for us using arc data
-			arcs, arcLabels;
-
-
-		initPieCharts = function(id, idata) {
-
-			//$('.address-pie').empty();
-
-			// var data = [{"label":"-", "value":1},{"label":"-", "value":1}];
-
-			var data = [0,1]; // [dem, rep]
-			//var labels = ['Dem','Rep'];
-
-			var svg = d3.select(id)
-				.append("svg:svg") //create the SVG element inside the <body>
-				// .data([data]) //associate our data with the document
-				.attr("width", w) //set the width and height of our visualization (these will be attributes of the <svg> tag
-				.attr("height", h)
-				.style("padding", "2px");
-				// .append("svg:g") //make a group to hold our pie chart
-				// .attr("transform", "translate(" + r + "," + r + ")") //move the center of the pie chart from 0, 0 to radius, radius
-
-			var arc_grp = svg.append("svg:g")
-				.attr("class", "arcGrp")
-				.attr("transform", "translate(" + r + "," + r + ")"); //move the center of the pie chart from 0, 0 to radius, radius
-
-
-			// DRAW ARC PATHS
-			arcs = arc_grp.selectAll("path")
-				.data(pie(data));
-			arcs.enter().append("svg:path")
-				.attr("stroke", "#444")
-				.attr("stroke-width", 1)
-				.attr("fill", function(d, i) {return color[i];}) // Note using an array and not usual color(i) functions.
-				.attr("d", arc)
-				.each(function(d) {this._current = d});
-
-			data = idata;
-
-			arcs.data(pie(data)); // recompute angles, rebind data
-			arcs.transition().ease("elastic").duration(pie_dur).attrTween("d", arcTween);
-
-		};
-
-		// initPieChart();
-
-		// Store the currently-displayed angles in this._current.
-		// Then, interpolate from this._current to the new angles.
-		function arcTween(a) {
-			var i = d3.interpolate(this._current, a);
-			this._current = i(0);
-			return function(t) {
-				return arc(i(t));
-			};
-		}
-	})();		
-
-	
-
-
-	initPieCharts('#address-pie-13',[2,2]);
-	initPieCharts('#address-pie-12',[2,3]);
-	initPieCharts('#address-pie-11',[2,1]);
-	initPieCharts('#address-pie-10',[2,2.5]);
-	initPieCharts('#address-pie-09',[2,1.5]);
-
 
 	function drawStackedChart(data) {
 
@@ -451,7 +370,7 @@ $(document).ready(function(){
 		// loadFile(0); // Now an index to addressInfo array
 
 		// This is the default address loaded on page load
-		loadFile('12'); // Now the id string
+		// loadFile('12'); // Now the id string
 
 		function initPopcorn(id) {   
 			var p = Popcorn(id).code({
@@ -605,41 +524,7 @@ $(document).ready(function(){
 			
 			var year = $(this).attr('data-addr');
 
-			// $('.address-summary').css('backgroundColor','#eee').css('border-width','0px');
-/*			
-			var colour = "#fff";
-			var titleText = "";
-
-			switch (year) {
-				case "13":
-					colour = "#9467bd";
-					titleText = "State Of The Union Address (Feb 2013)";
-					break;
-				case "12":
-					colour = "#d62728";
-					titleText = "State Of The Union Address (Jan 2012)";
-					break;
-				case "11":
-					colour = "#2ca02c";
-					titleText = "State Of The Union Address (Jan 2011)";
-					break;
-				case "10":
-					colour = "#ff7f0e";
-					titleText = "State Of The Union Address (Jan 2010)";
-					break;
-				case "09":
-					colour = "#1f77b4";
-					titleText = "The President Addresses A Joint Session of Congress (Feb 2009)";
-
-					break;
-			}
-*/
-			// var addrInfo = setTitle(year);
-
-			// $(this).css('backgroundColor','#fff').css('border-style','solid').css('border-bottom-width','2px').css('border-top-width','2px').css('border-color',colour);
-			// $(this).css('backgroundColor','#fff').css('border-style','solid').css('border-bottom-width','2px').css('border-top-width','2px').css('border-color',addrInfo.color);
-
-			// $('.control').css('backgroundColor',colour).text(titleText);
+			$('.intro').fadeOut();
 
 			loadFile(year);
 
