@@ -549,7 +549,7 @@ $(document).ready(function(){
 			var year = $(this).attr('data-addr');
 
 			$('.intro').fadeOut();
-			$('.the-analysis').fadeOut();
+			//$('.the-analysis').fadeOut();
 
 			playSource = true; // Stop the auto playback, as this was a user GUI action.
 
