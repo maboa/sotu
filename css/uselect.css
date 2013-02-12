@@ -267,11 +267,11 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 #chart text.title {
   font: 300 78px Helvetica Neue;
   fill: #666;
-  cursor: pointer;
+  /*cursor: pointer;*/
 }
 
 #chart text {
-	cursor: pointer;
+	/*cursor: pointer;*/
 }
 
 #chart .rule line {
