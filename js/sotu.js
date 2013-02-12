@@ -365,7 +365,8 @@ $(document).ready(function(){
 		
 		// transcript links to audio
 
-		$('#transcript').delegate('span','click',function(e){ 
+		// $('#transcript').delegate('span','click',function(e){ 
+		$('#transcript-content').delegate('span','click',function(e){ 
 			playSource = true;
 			tPause = 0; 
 			endTime = null;
