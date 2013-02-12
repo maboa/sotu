@@ -661,7 +661,7 @@ $(document).ready(function(){
 			};
 			asyncTrans(0);
 		}
-
+/*
 		$('rect,text').live('click',function(e){
 			playSource = true;
 			tPause = 0;
@@ -688,7 +688,7 @@ $(document).ready(function(){
 
 			return false;
 		});
-		
+*/		
 		var startTimer = new Date();
 
 		var loadNextTranscript = function(i, p, ai) {

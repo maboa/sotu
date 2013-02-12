@@ -275,11 +275,11 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
   stroke-opacity: .2;
   shape-rendering: crispEdges;
 }
-
+/*
 #chart rect {
 	cursor: pointer;
 }
-
+*/
 .axis path,
 .axis line {
   fill: none;
