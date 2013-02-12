@@ -1004,7 +1004,7 @@ $(document).ready(function(){
 		$('.close-intro').click(function(){   
 			
 			$('.intro').fadeOut(function() {
-				loadFile(addressInfo[0].id);
+				//loadFile(addressInfo[0].id);
 			});
 			 
 			return false;
