@@ -32,7 +32,8 @@ $(document).ready(function(){
 	$('#searchStr').focus();
 	$('#searchStr').attr('value',searchDefault);
 
-	$('#share-panel').hide();
+	$('#chart-legend-left').hide();
+	$('#chart-legend-right').hide();
 
 	var bars = 16; // 40;
 	var data = new Array(bars);
@@ -944,19 +945,9 @@ $(document).ready(function(){
 
 				//http://www.facebook.com/sharer.php?s=100&p[title]=titlehere&p[url]=http://www.yoururlhere.com&p[summary]=yoursummaryhere&p[images][0]=http://www.urltoyourimage.com
 
-				$('#search-panel').slideUp();
-				$('#analysis').slideUp();
-				$('#share-panel').slideDown();
-
 				_gaq.push(['_trackEvent', 'SOTU', 'Tweet generated', 'Tweet content '+theTweet]);
 			} 
 		}); 
-
-		$('#share-panel .close-btn').click(function() {
-			$('#search-panel').slideDown();
-			$('#analysis').slideDown();
-			$('#share-panel').slideUp();
-		});
 
 		$('#transcript-content-hint').click(function() {
 			$(this).fadeOut('slow');
@@ -1261,10 +1252,6 @@ $(document).ready(function(){
 			$('#fb-link').attr('href',fbLink);
 			$('#fb-link').show();
 
-			$('#search-panel').slideUp();
-			$('#analysis').slideUp();
-			$('#share-panel').slideDown();
-
 			$('.mini-footer').slideUp(function() {
 				$('.footer').slideDown(function() {
 					if(operaBarChartFix) {
@@ -1272,7 +1259,10 @@ $(document).ready(function(){
 						// drawStackedChart(searchData); // Draw the graph again to keep Opera happy that 1st time.
 					}
 				});
-				$('.body.row').animate({bottom: '164px'}, 500);
+				$('#chart-legend-left').slideDown();
+				$('#chart-legend-right').slideDown();
+				// $('.body.row').animate({bottom: '164px'}, 500);
+				$('#transcript-content').animate({bottom: '164px'}, 500);
 				$('#fade-bot').animate({top: '554px'}, 500);
 				$('#transcript-inst-panel').fadeOut();
 			});

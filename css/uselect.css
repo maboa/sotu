@@ -101,6 +101,7 @@ a img {border: none; }
 
 #target-content {
 	top: 0px;
+	bottom:0;
 }
 
 /* Generic pane rules */
@@ -228,7 +229,6 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 }
 
 .panel-title {
-	background-color: #FCC95C;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 15px;
 	font-weight: bold;
@@ -237,7 +237,7 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 }
 
 .share-snippet {
-	padding: 8px;
+	padding: 0 8px 8px;
 	font-family: "Droid Serif", Georgia, Times, serif;
 	font-style: italic;
 	text-align: left;
@@ -500,8 +500,25 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 	margin-left:4px;
 }
 
+.legend-wrapper {
+	position:relative;
+	width:736px;
+	font-size:13px;
+}
 .year-key-hldr {
-	margin-top:38px;
+	text-align:right;
+	margin:0 20px 0 0;
+	position:absolute;
+	right:0;
+	top:0;
+}
+.chart-x-axis {
+	margin:10px 0 0;
+	text-align:center;
+	font-weight:bold;
+}
+.chart-controls {
+	margin-left:20px;
 }
 
 .intro {
