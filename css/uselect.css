@@ -516,6 +516,8 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 	margin:10px 0 0;
 	text-align:center;
 	font-weight:bold;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background: #eee;
 }
 .chart-controls {
 	margin-left:20px;
@@ -576,4 +578,9 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 
 .close-btn {
 	cursor: pointer;
+}
+
+.legend-wrapper {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background-color: #eee;
 }
