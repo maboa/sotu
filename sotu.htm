@@ -99,8 +99,17 @@
 				<div class="mini-footer row">
 					<span id="transcript-how" style="display:none"><b>☝</b> Click or highlight words in the transcript to view or share the corresponding part of the address.</span>		
 				</div>
-				<div class="credits row">
-					==== Left hand part of the key ====
+				<div id="chart-legend-left" class="credits row">
+					<div class="legend-wrapper">
+						<p class="chart-x-axis">Minutes</p>
+						<p class="year-key-hldr">
+							<span class="year-key"> <span style="color:#1f77b4">&#9632;</span>2009</span>
+							<span class="year-key"> <span style="color:#ff7f0e">&#9632;</span>2010</span>
+							<span class="year-key"> <span style="color:#2ca02c">&#9632;</span>2011</span>
+							<span class="year-key"> <span style="color:#d62728">&#9632;</span>2012</span>
+							<span class="year-key"> <span style="color:#9467bd">&#9632;</span>2013</span>
+						</p>
+					</div>
 				</div>
 			</div>
 
@@ -257,7 +266,6 @@
 					<div class="right-panel" id="share-panel">
 						<div class="panel-title">
 							Share
-							<a class="close-btn" style="float:right;margin-right:10px;">X</a>
 						</div>
 						<div class="share-snippet">Highlight a section of the transcript to clip and share that video snippet.</div>
 						<div class="social-hldr">
@@ -267,29 +275,18 @@
 					</div>
 				</div>
 
-				<div id="corner-text" class="footer row" style="display:none">
-					<p>
-					<a id="close-chart" href="#"><img style="float:right;" src="close.png" /></a>
-					<form>
-						<label><input class="chart-type" type="radio" name="mode" value="grouped"> Grouped</label>
-						<label><input class="chart-type" type="radio" name="mode" value="stacked" checked> Stacked</label>
-					</form>
-					<p class="year-key-hldr">
-						<span class="year-key"><span style="color:#1f77b4"> ◾</span>2009</span>
-						<span class="year-key"><span style="color:#ff7f0e"> ◾</span>2010</span>
-						<span class="year-key"><span style="color:#2ca02c"> ◾</span>2011</span>
-						<span class="year-key"><span style="color:#d62728"> ◾</span>2012</span>
-						<span class="year-key"><span style="color:#9467bd"> ◾</span>2013</span>
-					</p>
-				</div>
+				<!-- <div class="mini-footer row"></div> -->
 
-				<div class="mini-footer row">
-		
-				</div>
-				<div class="credits row">
-					<span class="content-org">
-						====  ====
-					</span>
+				<div id="chart-legend-right" class="credits row">
+					<div class="legend-wrapper">
+						<!-- <p>
+							<a id="close-chart" href="#"><img style="float:right;" src="close.png" /></a>
+						</p> -->
+						<p class="chart-controls">
+							<label><input class="chart-type" type="radio" name="mode" value="grouped"> Grouped</label>
+							<label><input class="chart-type" type="radio" name="mode" value="stacked" checked> Stacked</label>
+						</p>
+					</div>
 				</div>
 			</div>
 
