@@ -70,6 +70,7 @@ ul {
 
 #search-panel {
 	margin-top:20px;
+	border: 2px solid #ccc;
 }
 
 #transcript-content span, #search-panel span, #search-panel label {
@@ -507,16 +508,18 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 	position:absolute;
 	top:0;
 	left:0;
-	width: 720px;
-	height: 626px;
-	padding:8px;
-	background-color:#fcfcfc;
+	width: 704px;
+	height: 647px;
+	padding:16px;
+	background-color:#000;
 	overflow:hidden;
-	color: #333;
+	color: #fff;
 	font-size: 16px;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	line-height: 20px;
-	z-index: 999;
+	opacity:0.9;
+	filter:alpha(opacity=90); /* For IE8 and earlier */
+	z-index: 99999999;
 }
 
 .the-analysis {
@@ -527,7 +530,7 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 	overflow-y: auto;
 	color: #333;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	height: 220px;
+	height: 420px;
 }
 
 .year-analysis {

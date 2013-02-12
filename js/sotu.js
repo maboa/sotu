@@ -10,7 +10,9 @@
  * Date: February 2013
  */
 
-$(document).ready(function(){   
+$(document).ready(function(){
+
+	//loadFile("12");
 
 	// The prefix variables should always be populated
 
@@ -331,6 +333,8 @@ $(document).ready(function(){
 	var myPlayer = $("#jquery_jplayer_1");
 	
 	// moved jPlayer instancing to loadFile()
+
+	loadFile("12");
 
 	$.jPlayer.timeFormat.showHour = true;
 
