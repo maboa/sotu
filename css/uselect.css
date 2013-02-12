@@ -73,6 +73,10 @@ ul {
 	border: 2px solid #ccc;
 }
 
+#share-panel {
+	border: 2px solid #ccc;
+}
+
 #transcript-content span, #search-panel span, #search-panel label {
 	cursor: pointer;
 }
@@ -156,7 +160,7 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 .body.row { top: 36px; bottom: 80px; }
 .footer.row { height: 120px; bottom: 40px;}
 .mini-footer { height: 30px; bottom: 50px;}
-.credits { height: 50px; bottom: 0px; background-color: #fff;}
+.credits { height: 50px; bottom: 0px; background-color: #fff;border:0;}
 
 
 
