@@ -939,7 +939,7 @@ $(document).ready(function(){
 				
 				// uncomment this line when we go live!
 				//url = "http://www.aljazeera.com/indepth/interactive/2012/10/20121049528478583.html";
-				var fbLink = "http://www.facebook.com/sharer.php?s=100&p[title]="+fbTitle+"&p[url]="+url+"&p[summary]="+encodeURIComponent(tweetable);
+				var fbLink = "http://www.facebook.com/sharer.php?s=100&p[title]="+fbTitle+"&p[url]="+url+"&p[summary]="+encodeURIComponent(theTweet);
 				//var fbLink = "http://www.facebook.com/sharer.php?u="+url+"?s="+s+"-"+e;
 				$('#fb-link').attr('href',fbLink);
 				$('#fb-link').show();
