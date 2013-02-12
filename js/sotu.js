@@ -743,6 +743,8 @@ $(document).ready(function(){
 
 			var poster = posterDir + addressInfo[ai].poster;
 
+			$("#the-analysis").scrollTo($("#analysis-10"), 800, {axis:'y',margin:true,offset:{top:0}});
+
 			// MJP: Next line appears obsolete.
 			// currentlyPlaying = id;
 
@@ -1005,6 +1007,7 @@ $(document).ready(function(){
 			
 			$('.intro').fadeOut(function() {
 				//loadFile(addressInfo[0].id);
+				$('#transcript-how').fadeIn();
 			});
 			 
 			return false;
