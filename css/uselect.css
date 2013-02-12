@@ -69,7 +69,7 @@ ul {
 }
 
 #search-panel {
-	margin-top:20px;
+	margin-top:18px;
 	border: 2px solid #ccc;
 }
 
@@ -124,7 +124,7 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 @media screen and (orientation:landscape) { .iemobile .page { bottom: 75px; } }
 
 .header, .footer, .mini-footer {
-    color: #444; background: #eee;
+	color: #444; background: #eee;
 }
 .header { font-size: 16px; }
 .body, .pane { background: #fcfcfc; }
@@ -237,7 +237,7 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 	font-size: 15px;
 	font-weight: bold;
 	padding: 2px 0 2px 0;
-	margin-top: 14px;
+	margin-top: 4px;
 }
 
 .share-snippet {
@@ -383,6 +383,13 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 	position: absolute;
 }
 
+.fader-big {
+	height: 16px;
+	width: 974px;
+	z-index: 999;	
+	position: absolute;
+}
+
 #fade-top {
 	background-image: url('../fadedown.png');
 	top:430px;
@@ -393,6 +400,16 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 	top:634px;
 }
 
+#fade-big-top {
+	background-image: url('../fadedown.png');
+	top:730px;
+}
+
+#fade-big-bot {
+	background-image: url('../fadeup.png');
+	top:1150px;
+}
+
 .content-org {
 	padding-left: 46px;
 }
@@ -401,8 +418,7 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 	padding: 0 16px 0 16px;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 12px;
-	line-height: 28px;	
-	text-align: right;
+	line-height: 28px;
 }
 
 .thumb-hldr {
@@ -525,6 +541,7 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 }
 .chart-controls {
 	margin-left:20px;
+	padding-top:8px;
 }
 
 .intro {
@@ -579,6 +596,14 @@ body { margin: 0; -webkit-text-size-adjust: 100%; }
 	filter:alpha(opacity=80); /* For IE8 and earlier */
 	z-index: 9999999;	
 }
+
+#close-chart-hldr {
+	position:absolute;
+	top:576px;
+	right:8px;
+	z-index: 9999999;
+}
+
 
 .close-btn {
 	cursor: pointer;

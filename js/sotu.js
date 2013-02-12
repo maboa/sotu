@@ -1280,7 +1280,9 @@ $(document).ready(function(){
 			$('#fb-link').show();
 
 			$('.mini-footer').slideUp(function() {
+				
 				$('.footer').slideDown(function() {
+					$('#close-chart-hldr').fadeIn();
 					if(operaBarChartFix) {
 						operaBarChartFix = false;
 						// drawStackedChart(searchData); // Draw the graph again to keep Opera happy that 1st time.
@@ -1292,6 +1294,7 @@ $(document).ready(function(){
 				$('#transcript-content').animate({bottom: '164px'}, 500);
 				$('#fade-bot').animate({top: '554px'}, 500);
 				$('#transcript-inst-panel').fadeOut();
+				$
 			});
 
 			// uncomment below to activate search term playback
@@ -1310,12 +1313,14 @@ $(document).ready(function(){
 		});
 
 		$('#close-chart').click(function() {
+			$('#close-chart-hldr').fadeOut();
 			$('.footer').slideUp(function() {
 				$('.mini-footer').slideDown(function() {
 				});
 				$('.body.row').animate({bottom: '80px'}, 500);
 				$('#fade-bot').animate({top: '634px'}, 500);
 				$('#transcript-inst-panel').fadeIn();
+
 			});
 			return false;
 		});
