@@ -18,8 +18,7 @@ $(document).ready(function(){
 
 	var dataMs = "data-ms";
 
-
-	var fbTitle = "The President Addresses A Joint Session of Congress (Feb 2009)";
+	var fbTitle = "State of the Union";
 
 	var locationUrl = (window.location != window.parent.location) ? document.referrer: document.location;
 
@@ -132,6 +131,19 @@ $(document).ready(function(){
 		    .attr("class", "layer")
 		    // .style("fill", function(d, i) { return color(i); });
 		    .style("fill", function(d, i) { return color[i]; }); // Note using an array and not usual color(i) functions.
+
+		var rules = svg.append("g");
+
+    // Add rules
+
+  	/*rules = rules.selectAll(".rule")
+   		.data(y.ticks(d3.max(data, function(datum) { return datum.s; })))
+    	.enter().append("g")
+    	.attr("class", "rule")
+    	.attr("transform", function(d) { return "translate(0," + y(d) + ")"; });
+  
+  	rules.append("line")
+      .attr("x2", width);*/
 
 		var rect = layer.selectAll("rect")
 		    .data(function(d) { return d; })
@@ -1076,6 +1088,8 @@ $(document).ready(function(){
 		var hitsDetails;
 
 		$('#search-btn').click(function(e){   
+
+			$('.intro').fadeOut();
 
 			if(!transcriptsLoaded) {
 				return false; // Exit now as nothing to search yet.
