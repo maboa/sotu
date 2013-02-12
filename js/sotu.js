@@ -661,7 +661,12 @@ $(document).ready(function(){
 			};
 			asyncTrans(0);
 		}
+
 /*
+
+		// DISABLED clicks on the chart from attempting to play from the search data.
+		// Did not get round to doing that part.
+
 		$('rect,text').live('click',function(e){
 			playSource = true;
 			tPause = 0;
@@ -761,7 +766,7 @@ $(document).ready(function(){
 
 			var poster = posterDir + addressInfo[ai].poster;
 
-			$("#the-analysis").scrollTo($("#analysis-10"), 800, {axis:'y',margin:true,offset:{top:0}});
+			$("#the-analysis").scrollTo($("#analysis-" + id), 800, {axis:'y',margin:true,offset:{top:0}});
 
 			// MJP: Next line appears obsolete.
 			// currentlyPlaying = id;
