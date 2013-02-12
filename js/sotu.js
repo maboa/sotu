@@ -213,6 +213,10 @@ $(document).ready(function(){
 	var videoM = [];
 	var videoW = [];
 
+	// NOTE: ONLY THE M4V VIDEOS ARE BEING USED.
+	// The WebM videos were not provided.
+	// The jPlayer options were used to switch it to use M4V only.
+
 	// Array of Objects to hold media information.
 	var addressInfo = [
 /*		{
@@ -850,8 +854,8 @@ $(document).ready(function(){
 				},
 				solution: "html, flash",
 				swfPath: "js",
-				supplied: "m4v,webmv",
-				preload: "auto",
+				supplied: "m4v", // m4v,webmv",
+				// preload: "auto",
 				size: {
 					width: "720px",
 					height:"405px",
