@@ -12,8 +12,6 @@
 
 $(document).ready(function(){
 
-	//loadFile("12");
-
 	// The prefix variables should always be populated
 
 	var dataMs = "data-ms";
