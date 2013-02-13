@@ -348,10 +348,6 @@ $(document).ready(function(){
 		
 	var myPlayer = $("#jquery_jplayer_1");
 	
-	// moved jPlayer instancing to loadFile()
-
-	loadFile("13");
-
 	$.jPlayer.timeFormat.showHour = true;
 
 	var i = 0;
@@ -396,14 +392,6 @@ $(document).ready(function(){
 		myPlayer.bind($.jPlayer.event.timeupdate, function(event) {       
 			currentTime = event.jPlayer.status.currentTime; 
     });
-
-		/* load in the file */  
-
-		// loadFile('sotu2009');
-		// loadFile(0); // Now an index to addressInfo array
-
-		// This is the default address loaded on page load
-		// loadFile('12'); // Now the id string
 
 		function initPopcorn(id) {   
 			var p = Popcorn(id).code({
@@ -1469,5 +1457,8 @@ $(document).ready(function(){
 		$('.intro').fadeOut(function() {
 			loadFile(checkStartYearParam());
 		});
+	} else {
+		// Otherwise load in the default video
+		loadFile("13"); // loadFile() uses the addressInfo id.
 	}
 });
