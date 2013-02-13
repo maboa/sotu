@@ -219,17 +219,17 @@ $(document).ready(function(){
 
 	// Array of Objects to hold media information.
 	var addressInfo = [
-/*		{
+	{
 			id: "13",
 			title: "State Of The Union Address (Feb 2013)",
 			color: "#9467bd",
-			transcript: "sotu2013.htm",
-			poster: "poster2013.jpg",
+			transcript: "sotu2012.htm",
+			poster: "2013Poster.jpg",
 			videoM: {
-				lo: "20090224_JointSession.mp4",
-				me: "20090224_JointSession.mp4",
-				hi: "20090224_JointSession.mp4",
-				hd: "20090224_JointSession.mp4"
+				lo: "665003303001_2161312826001_The-2013-State-of-the-Union-Address.mp4",
+				me: "665003303001_2161312826001_The-2013-State-of-the-Union-Address.mp4",
+				hi: "665003303001_2161312826001_The-2013-State-of-the-Union-Address.mp4",
+				hd: "665003303001_2161312826001_The-2013-State-of-the-Union-Address.mp4"
 			},
 			videoW: {
 				lo: "debate4.webm",
@@ -238,7 +238,6 @@ $(document).ready(function(){
 				hd: "debate4.webm"
 			}
 		},
-*/
 		{
 			id: "12",
 			title: "State Of The Union Address (Jan 2012)",
@@ -351,7 +350,7 @@ $(document).ready(function(){
 	
 	// moved jPlayer instancing to loadFile()
 
-	loadFile("12");
+	loadFile("13");
 
 	$.jPlayer.timeFormat.showHour = true;
 
@@ -1280,9 +1279,11 @@ $(document).ready(function(){
 			$('#fb-link').show();
 
 			$('.mini-footer').slideUp(function() {
-				
+				$('.chart-controls').fadeIn();
+				$('.year-key-hldr').fadeIn();
 				$('.footer').slideDown(function() {
 					$('#close-chart-hldr').fadeIn();
+
 					if(operaBarChartFix) {
 						operaBarChartFix = false;
 						// drawStackedChart(searchData); // Draw the graph again to keep Opera happy that 1st time.
@@ -1294,7 +1295,7 @@ $(document).ready(function(){
 				$('#transcript-content').animate({bottom: '164px'}, 500);
 				$('#fade-bot').animate({top: '554px'}, 500);
 				$('#transcript-inst-panel').fadeOut();
-				$
+
 			});
 
 			// uncomment below to activate search term playback
@@ -1317,9 +1318,13 @@ $(document).ready(function(){
 			$('.footer').slideUp(function() {
 				$('.mini-footer').slideDown(function() {
 				});
-				$('.body.row').animate({bottom: '80px'}, 500);
+				$('#transcript-content').animate({bottom: '80px'}, 500);
 				$('#fade-bot').animate({top: '634px'}, 500);
 				$('#transcript-inst-panel').fadeIn();
+				$('.chart-controls').fadeOut();
+				$('.year-key-hldr').fadeOut();
+				//$('#chart-legend-right').fadeOut();
+				//$('#target-content').attr('height','730px');
 
 			});
 			return false;
