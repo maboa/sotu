@@ -223,7 +223,7 @@ $(document).ready(function(){
 			id: "13",
 			title: "State Of The Union Address (Feb 2013)",
 			color: "#9467bd",
-			transcript: "sotu2012.htm",
+			transcript: "sotu2013.htm",
 			poster: "2013Poster.jpg",
 			videoM: {
 				lo: "665003303001_2161312826001_The-2013-State-of-the-Union-Address.mp4",
